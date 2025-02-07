@@ -1,5 +1,9 @@
-function Page() {
-  return <h1>Cabins Page</h1>;
+async function Page() {
+  return (
+    <div>
+      <h1>Cabins Page</h1>
+    </div>
+  );
 }
 
 export default Page;
