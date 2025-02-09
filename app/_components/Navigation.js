@@ -1,11 +1,12 @@
+"use client";
 import Link from "next/link";
 import Logo from "./Logo";
 
 function Navigation() {
   return (
-    <div>
+    <div className="flex items-center gap-4 justify-center">
       <Logo />
-      <ul>
+      <ul className="flex items-center gap-4">
         <li>
           <Link href="/">Home</Link>
         </li>
