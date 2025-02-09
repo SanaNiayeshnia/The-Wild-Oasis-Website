@@ -3,7 +3,7 @@ import Logo from "./Logo";
 
 function Navigation() {
   return (
-    <div className="flex items-center gap-4 justify-between py-4 px-6 z-30">
+    <div className="flex items-center gap-4 justify-between py-4 z-30">
       <Logo />
       <ul className="flex items-center gap-8 [&_li]:hover:text-accent-400 transition-all duration-300 [&_li]:text-primary-50">
         <li>
