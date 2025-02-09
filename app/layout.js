@@ -15,9 +15,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${josefin?.className} bg-accent-500`}>
+      <body
+        className={`${josefin?.className} bg-primary-950  min-h-screen flex flex-col gap-2`}
+      >
         <Navigation />
-        {children}
+        <main className="px-6 py-2 h-full flex-grow text-primary-100 flex flex-col">
+          {children}
+        </main>
       </body>
     </html>
   );
