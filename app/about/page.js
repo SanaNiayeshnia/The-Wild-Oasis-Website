@@ -6,7 +6,7 @@ import Link from "next/link";
 export const metadata = { title: "About" };
 function Page() {
   return (
-    <div>
+    <div className="pb-14 pt-6">
       <section className="flex flex-col-reverse lg:flex-row gap-10 lg:gap-20 items-center">
         <div className="text-justify flex flex-col items-center lg:items-start gap-6 ">
           <h1 className="text-2xl font-semibold text-accent-400">

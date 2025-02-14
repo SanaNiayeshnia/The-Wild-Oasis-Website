@@ -1,6 +1,10 @@
 export const metadata = { title: "Account" };
 function Page() {
-  return <h1>Account Page</h1>;
+  return (
+    <div>
+      <h1 className="text-accent-400">Welcome, Sana</h1>
+    </div>
+  );
 }
 
 export default Page;
