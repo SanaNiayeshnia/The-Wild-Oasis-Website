@@ -15,7 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${josefin?.className} bg-primary-950 `}>
+      <body className={`${josefin?.className} bg-primary-950 relative`}>
         <div className="min-h-screen flex flex-col max-w-7xl mx-auto px-6 ">
           <TopNavigation />
           <main className=" h-full flex-grow text-primary-100 flex flex-col">
