@@ -3,6 +3,7 @@ import CabinCard from "./CabinCard";
 
 async function CabinList() {
   const cabins = await getCabins();
+  console.log(cabins);
 
   return (
     <div className="grid grid-cols-3 gap-6 mb-8">

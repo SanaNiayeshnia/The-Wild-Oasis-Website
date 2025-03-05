@@ -2,7 +2,7 @@ import Loader from "./_components/Loader";
 
 function loading() {
   return (
-    <div className="flex-grow grid place-items-center">
+    <div className="-mt-30 flex-grow grid place-items-center">
       <Loader />
     </div>
   );
