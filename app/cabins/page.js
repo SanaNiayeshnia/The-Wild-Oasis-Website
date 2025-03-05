@@ -1,11 +1,9 @@
-import CabinCard from "../_components/cabins/CabinCard";
-import { getCabins } from "../_lib/data_services";
+import { Suspense } from "react";
+import CabinList from "../_components/cabins/CabinList";
+import Loader from "../_components/Loader";
 
 export const metadata = { title: "Cabins" };
-async function Page() {
-  const cabins = await getCabins();
-  console.log(cabins);
-
+function Page() {
   return (
     <div className="flex flex-col gap-8">
       <div className="mt-4">
@@ -21,11 +19,15 @@ async function Page() {
           vacation. Welcome to paradise.
         </p>
       </div>
-      <div className="grid grid-cols-3 gap-6 mb-8">
-        {cabins?.map((cabin, index) => (
-          <CabinCard key={index} cabin={cabin} />
-        ))}
-      </div>
+      <Suspense
+        fallback={
+          <div className="flex-grow place-items-center">
+            <Loader />
+          </div>
+        }
+      >
+        <CabinList />
+      </Suspense>
     </div>
   );
 }
