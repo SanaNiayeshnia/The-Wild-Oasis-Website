@@ -2,6 +2,7 @@ import Image from "next/image";
 import aboutPic1 from "@/public/about-1.jpg";
 import aboutPic2 from "@/public/about-2.jpg";
 import Link from "next/link";
+import Button from "../_components/button";
 
 export const metadata = { title: "About" };
 function Page() {
@@ -64,12 +65,7 @@ function Page() {
             Wild Oasis soon, where tradition meets tranquility, and every visit
             is like coming home.
           </p>
-          <Link
-            href="/cabins"
-            className="bg-accent-500 shadow-lg py-4 px-6 text-primary-950 rounded hover:bg-accent-600 hover:rounded-none hover:px-8 transition-all duration-300"
-          >
-            Explore luxury cabins
-          </Link>
+          <Button href="/cabins">Explore luxury cabins</Button>
         </div>
       </section>
     </div>

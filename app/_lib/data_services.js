@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import supabase from "./supabase";
 import { getPlaiceholder } from "plaiceholder";
 
@@ -26,6 +27,8 @@ export async function getCabin(id) {
     .select("*")
     .eq("id", id)
     .single();
-  if (error) throw new Error("Couldn't fetch the cabin", error);
+  if (error) {
+    notFound();
+  }
   return cabin;
 }

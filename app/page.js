@@ -1,6 +1,7 @@
 import Image from "next/image";
 import bg from "@/public/bg.png";
 import Link from "next/link";
+import Button from "./_components/button";
 
 export default function Home() {
   return (
@@ -17,12 +18,7 @@ export default function Home() {
           <h1 className="text-primary-50 text-5xl md:text-7xl drop-shadow-xl text-center">
             Welcome to paradise.
           </h1>
-          <Link
-            href="/cabins"
-            className="bg-accent-500 shadow-lg py-4 px-6 text-primary-950 rounded hover:bg-accent-600 hover:rounded-none hover:px-8 transition-all duration-300"
-          >
-            Explore luxury cabins
-          </Link>
+          <Button href="/cabins">Explore luxury cabins</Button>
         </div>
       </div>
     </div>

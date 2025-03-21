@@ -8,6 +8,13 @@ import {
   HiUsers,
 } from "react-icons/hi2";
 
+export async function generateMetadata({ params }) {
+  const { name } = await getCabin(params?.cabinId);
+  return {
+    title: `Cabin ${name}`,
+  };
+}
+
 async function page({ params }) {
   const cabin = await getCabin(params?.cabinId);
   console.log(cabin);
