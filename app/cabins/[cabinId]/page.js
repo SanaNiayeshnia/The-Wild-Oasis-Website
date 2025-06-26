@@ -1,4 +1,5 @@
-import { getCabin } from "@/app/_lib/data_services";
+import { TextExpander } from "@/app/_components/TextExpander";
+import { getCabin, getCabins } from "@/app/_lib/data_services";
 import Image from "next/image";
 import { HiEyeOff, HiLocationMarker } from "react-icons/hi";
 import {
@@ -15,6 +16,14 @@ export async function generateMetadata({ params }) {
   };
 }
 
+export async function generateStaticParams() {
+  const cabins = await getCabins();
+  const staticParams = cabins?.map((cabin) => ({
+    cabinId: String(cabin?.id),
+  }));
+  return staticParams;
+}
+
 async function page({ params }) {
   const cabin = await getCabin(params?.cabinId);
   console.log(cabin);
@@ -25,19 +34,19 @@ async function page({ params }) {
   return (
     <div className="mt-4">
       <div className="flex border-2 border-primary-800 rounded">
-        <div className="relative min-w-96 h-[450px] border-r-2 border-primary-800">
+        <div className="relative min-w-96 min-h-[450px] border-r-2 border-primary-800">
           <Image
             src={cabin?.image}
             fill
             alt={cabin?.name}
-            className="object-cover"
+            className="object-cover transition-all duration-300"
           />
         </div>
         <div className="flex flex-col justify-around gap-3 py-5 px-7">
           <h1 className="text-5xl font-bold text-accent-200">
             Cabin {cabin?.name}
           </h1>
-          <p className="text-justify">{cabin?.description}</p>
+          <TextExpander>{cabin?.description}</TextExpander>
           <div className="flex items-end justify-between">
             <div className="flex flex-col gap-1.5 [&_span]:text-white [&_svg]:text-lg [&_svg]:text-primary-500">
               <p className="flex items-center gap-2 ">

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import bg from "@/public/bg.png";
-import Link from "next/link";
 import Button from "./_components/button";
 
 export default function Home() {

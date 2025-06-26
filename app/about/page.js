@@ -1,11 +1,14 @@
 import Image from "next/image";
 import aboutPic1 from "@/public/about-1.jpg";
 import aboutPic2 from "@/public/about-2.jpg";
-import Link from "next/link";
 import Button from "../_components/button";
+import { getCabins } from "../_lib/data_services";
 
+export const revalidate = 86400; //revalidate everyday
 export const metadata = { title: "About" };
-function Page() {
+async function Page() {
+  const cabins = await getCabins();
+
   return (
     <div className="pb-14 pt-6">
       <section className="flex flex-col-reverse lg:flex-row gap-10 lg:gap-20 items-center">
@@ -21,10 +24,11 @@ function Page() {
             and enjoying simple pleasures with family.
           </p>
           <p>
-            Our 8 luxury cabins provide a cozy base, but the real freedom and
-            peace you&apos;ll find in the surrounding mountains. Wander through
-            lush forests, breathe in the fresh air, and watch the stars twinkle
-            above from the warmth of a campfire or your hot tub.
+            Our {cabins?.length || 0} luxury cabins provide a cozy base, but the
+            real freedom and peace you&apos;ll find in the surrounding
+            mountains. Wander through lush forests, breathe in the fresh air,
+            and watch the stars twinkle above from the warmth of a campfire or
+            your hot tub.
           </p>
           <p>
             This is where memorable moments are made, surrounded by

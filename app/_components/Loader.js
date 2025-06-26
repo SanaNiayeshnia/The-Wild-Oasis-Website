@@ -1,7 +1,6 @@
 "use client";
 import loader from "@/app/_assets/loader.json";
 import loader2 from "@/app/_assets/loader2.json";
-
 import Lottie from "lottie-react";
 function Loader({ style = {}, type = 1 }) {
   return (
