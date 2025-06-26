@@ -1,9 +1,20 @@
 import { Suspense } from "react";
 import CabinList from "../_components/cabins/CabinList";
 import Loader from "../_components/Loader";
+import { FilterBox } from "../_components/FilterBox";
+import * as React from "react";
 
 export const metadata = { title: "Cabins" };
-function Page() {
+export const revalidate = 3600;
+const filterByCapacity = [
+  { label: "all", value: "all" },
+  { label: "2-3 guests", value: "small" },
+  { label: "4-7 guests", value: "medium" },
+  { label: "8-12 guests", value: "large" },
+];
+
+function Page({ searchParams }) {
+  const { capacity } = React.use(searchParams) ?? "all";
   return (
     <div className="flex flex-col gap-8">
       <div className="mt-4">
@@ -19,14 +30,18 @@ function Page() {
           vacation. Welcome to paradise.
         </p>
       </div>
+      <div className="flex justify-end">
+        <FilterBox items={filterByCapacity} filterName="capacity" />
+      </div>
       <Suspense
         fallback={
           <div className="flex-grow place-items-center">
             <Loader />
           </div>
         }
+        key={capacity}
       >
-        <CabinList />
+        <CabinList capacity={capacity} />
       </Suspense>
     </div>
   );
