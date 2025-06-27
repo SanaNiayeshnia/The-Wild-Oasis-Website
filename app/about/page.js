@@ -1,7 +1,7 @@
 import Image from "next/image";
 import aboutPic1 from "@/public/about-1.jpg";
 import aboutPic2 from "@/public/about-2.jpg";
-import Button from "../_components/button";
+import Button from "../_components/Button";
 import { getCabins } from "../_lib/data_services";
 
 export const revalidate = 86400; //revalidate everyday

@@ -8,6 +8,7 @@ import {
   HiStar,
   HiUsers,
 } from "react-icons/hi2";
+import * as React from "react";
 
 export async function generateMetadata({ params }) {
   const { name } = await getCabin(params?.cabinId);
@@ -24,7 +25,7 @@ export async function generateStaticParams() {
   return staticParams;
 }
 
-async function page({ params }) {
+async function Page({ params }) {
   const cabin = await getCabin(params?.cabinId);
   console.log(cabin);
   const priceWithDiscount = Math?.floor(
@@ -89,4 +90,4 @@ async function page({ params }) {
   );
 }
 
-export default page;
+export default Page;

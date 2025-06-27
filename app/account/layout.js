@@ -12,7 +12,7 @@ function layout({ children }) {
     { title: "Guest Profile", icon: <HiUser />, link: "/account/profile" },
   ];
   return (
-    <div className="flex gap-4 flex-grow  border-t-2 border-primary-900">
+    <div className="flex gap-8 flex-grow  border-t-2 border-primary-900">
       <SideNavigation items={sideNavItems} />
       <div className="pt-6">{children}</div>
     </div>

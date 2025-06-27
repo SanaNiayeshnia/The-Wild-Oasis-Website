@@ -23,3 +23,15 @@ export async function getCabin(id) {
   }
   return cabin;
 }
+
+export async function getCountries() {
+  try {
+    const res = await fetch(
+      "https://restcountries.com/v2/all?fields=name,flag"
+    );
+    return res.json();
+  } catch (error) {
+    console.log(error.message);
+    return [];
+  }
+}
