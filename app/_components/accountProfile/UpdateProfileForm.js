@@ -12,7 +12,7 @@ function UpdateProfileForm({ children }) {
       {children}
       <FormField label="National Id Number" type="number" />
 
-      <Button type="submit" className="self-end mt-2">
+      <Button type="submit" className="self-end mt-2 !py-3 !px-4">
         Update profile
       </Button>
     </form>

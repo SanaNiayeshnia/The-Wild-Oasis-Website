@@ -9,6 +9,7 @@ import {
   HiUsers,
 } from "react-icons/hi2";
 import * as React from "react";
+import CheckIn from "@/app/_components/cabins/CheckIn/CheckIn";
 
 export async function generateMetadata({ params }) {
   const { name } = await getCabin(params?.cabinId);
@@ -33,7 +34,7 @@ async function Page({ params }) {
   );
 
   return (
-    <div className="mt-4">
+    <div className="mt-4 mb-10">
       <div className="flex border-2 border-primary-800 rounded">
         <div className="relative min-w-96 min-h-[450px] border-r-2 border-primary-800">
           <Image
@@ -81,11 +82,12 @@ async function Page({ params }) {
           </div>
         </div>
       </div>
-      <p className="text-4xl mt-10 [&_svg]:text-xl items-center flex justify-center text-accent-400 font-medium ">
+      <p className="text-4xl my-10 [&_svg]:text-xl items-center flex justify-center text-accent-400 font-medium ">
         <HiChevronDoubleLeft />
-        Reserve today. Pay on arrival
+        Reserve {cabin?.name} today. Pay on arrival
         <HiChevronDoubleRight />
       </p>
+      <CheckIn />
     </div>
   );
 }
