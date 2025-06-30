@@ -2,17 +2,53 @@
 import { useState } from "react";
 import { Calendar } from "react-multi-date-picker";
 import styles from "./customeDatePicker.module.scss";
+import { differenceInCalendarDays } from "date-fns";
+import toast from "react-hot-toast";
+import { HiMiniInformationCircle } from "react-icons/hi2";
 
-function CustomDatePicker() {
-  const [date, setDate] = useState();
-
+function CustomDatePicker({
+  value,
+  setValue,
+  minRangeLength = 1,
+  maxRangeLength = Infinity,
+  range = false,
+}) {
+  function onChange(value) {
+    const rangeLength = differenceInCalendarDays(value?.[1], value?.[0]);
+    console.log(
+      value,
+      minRangeLength,
+      maxRangeLength,
+      rangeLength >= minRangeLength && rangeLength <= maxRangeLength,
+      rangeLength
+    );
+    if (
+      (value.length === 2 &&
+        rangeLength >= minRangeLength &&
+        rangeLength <= maxRangeLength) ||
+      value.length === 1
+    ) {
+      setValue(value);
+    } else {
+      setValue([]);
+      toast(
+        `You should select between ${minRangeLength} to ${maxRangeLength} days.`,
+        {
+          icon: (
+            <HiMiniInformationCircle className="text-2xl text-accent-700" />
+          ),
+        }
+      );
+    }
+  }
   return (
-    <div className={`p-3 grid place-items-center  `}>
+    <div className={`p-3 grid place-items-center`}>
       <Calendar
-        value={date}
-        onChange={(value) => setDate(value)}
-        range
+        value={value}
+        onChange={(value) => (range ? onChange(value) : setValue(value))}
+        range={range}
         className={styles.customDatePicker}
+        minDate={new Date()}
       />
     </div>
   );

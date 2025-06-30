@@ -1,5 +1,5 @@
 import { TextExpander } from "@/app/_components/TextExpander";
-import { getCabin, getCabins } from "@/app/_lib/data_services";
+import { getCabin, getCabins, getSettings } from "@/app/_lib/data_services";
 import Image from "next/image";
 import { HiEyeOff, HiLocationMarker } from "react-icons/hi";
 import {
@@ -28,7 +28,8 @@ export async function generateStaticParams() {
 
 async function Page({ params }) {
   const cabin = await getCabin(params?.cabinId);
-  console.log(cabin);
+  const settings = await getSettings();
+
   const priceWithDiscount = Math?.floor(
     (cabin?.regularPrice * (100 - cabin?.discount)) / 100
   );
@@ -87,7 +88,7 @@ async function Page({ params }) {
         Reserve {cabin?.name} today. Pay on arrival
         <HiChevronDoubleRight />
       </p>
-      <CheckIn />
+      <CheckIn settings={settings} />
     </div>
   );
 }

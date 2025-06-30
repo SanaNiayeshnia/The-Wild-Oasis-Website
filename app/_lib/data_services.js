@@ -35,3 +35,14 @@ export async function getCountries() {
     return [];
   }
 }
+
+export async function getSettings() {
+  const { data: settings, error } = await supabase
+    .from("settings")
+    .select("*")
+    .single();
+  if (error) {
+    throw new Error("Couldn't fetch settings", error);
+  }
+  return settings;
+}

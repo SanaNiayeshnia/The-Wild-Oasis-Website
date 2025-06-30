@@ -43,4 +43,7 @@
     box-shadow: 0 0 3px #281e10 !important;
     color: #281e10 !important;
   }
+  :global(.rmdp-disabled) {
+    color: gray !important;
+  }
 }
