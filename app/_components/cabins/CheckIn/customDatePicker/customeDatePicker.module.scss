@@ -1,0 +1,46 @@
+.customDatePicker {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  :global(.rmdp-day),
+  :global(.rmdp-header-values) {
+    color: var(--color-accent-100) !important;
+  }
+  :global(.rmdp-week-day) {
+    color: var(--color-accent-400) !important;
+  }
+  :global(.rmdp-arrow) {
+    border-color: var(--color-accent-400) !important;
+  }
+  :global(.rmdp-arrow-container) {
+    &:hover {
+      background-color: #574123 !important;
+      box-shadow: none !important;
+    }
+  }
+  :global(.rmdp-day):not(:global(.rmdp-today)) {
+    span:hover {
+      background-color: #281e10 !important;
+    }
+  }
+  :global(.rmdp-today) {
+    span {
+      background-color: #574123 !important;
+    }
+  }
+  :global(.rmdp-year-picker),
+  :global(.rmdp-month-picker) {
+    background-color: var(--color-primary-900) !important;
+  }
+  :global(.rmdp-selected) {
+    span {
+      background-color: var(--color-accent-400) !important;
+      box-shadow: 0 0 3px #281e10 !important;
+      color: #281e10 !important;
+    }
+  }
+  :global(.rmdp-range) {
+    background-color: var(--color-accent-400) !important;
+    box-shadow: 0 0 3px #281e10 !important;
+    color: #281e10 !important;
+  }
+}

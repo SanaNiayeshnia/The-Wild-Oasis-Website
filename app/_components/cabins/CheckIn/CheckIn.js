@@ -1,6 +1,6 @@
 import { HiX } from "react-icons/hi";
 import CheckInDetails from "./CheckInDetails";
-import CustomDatePicker from "./CustomDatePicker";
+import CustomDatePicker from "./customDatePicker/CustomDatePicker";
 
 function CheckIn() {
   return (
