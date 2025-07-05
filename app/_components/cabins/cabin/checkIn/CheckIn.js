@@ -14,7 +14,8 @@ async function CheckIn({ cabin = {} }) {
         <CustomDatePicker
           minRangeLength={minBookingLength}
           maxRangeLength={maxBookingLength}
-          range
+          cabinId={cabin?.id}
+          key={cabin?.id}
         />
         <div className="flex items-center py-1.5 px-3 justify-between gap-4 bg-accent-500 text-stone-800">
           <div className="flex items-center gap-4">

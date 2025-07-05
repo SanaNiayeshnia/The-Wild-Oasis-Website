@@ -3,6 +3,7 @@ import CabinList from "../_components/cabins/CabinList";
 import Loader from "../_components/Loader";
 import { FilterBox } from "../_components/FilterBox";
 import * as React from "react";
+import ReservationToast from "../_components/cabins/ReservationToast";
 
 export const metadata = { title: "Cabins" };
 export const revalidate = 3600;
@@ -43,6 +44,7 @@ function Page({ searchParams }) {
       >
         <CabinList capacity={capacity} />
       </Suspense>
+      <ReservationToast />
     </div>
   );
 }

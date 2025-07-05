@@ -2,6 +2,7 @@ import TopNavigation from "./_components/TopNavigation";
 import "@/app/_styles/globals.css";
 import { Josefin_Sans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
+import ReservationContextProvider from "./_contexts/reservationContext/ReservationContextProvider";
 
 const josefin = Josefin_Sans({ subsets: ["latin"], display: "swap" });
 
@@ -34,7 +35,7 @@ export default function RootLayout({ children }) {
         <div className="min-h-screen flex flex-col max-w-7xl mx-auto px-6 ">
           <TopNavigation />
           <main className=" h-full flex-grow text-primary-100 flex flex-col">
-            {children}
+            <ReservationContextProvider>{children}</ReservationContextProvider>
           </main>
         </div>
       </body>

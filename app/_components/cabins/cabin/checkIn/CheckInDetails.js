@@ -1,9 +1,12 @@
+"use client";
 import FormField from "@/app/_components/accountProfile/FormField";
 import { SelectBox } from "@/app/_components/accountProfile/SelectBox";
 import Button from "@/app/_components/Button";
+import { useState } from "react";
 
 function CheckInDetails({ cabin = {} }) {
   const { maxCapacity } = cabin;
+  const [guestCount, setGuestCount] = useState(0);
   return (
     <div className="flex flex-col flex-grow bg-primary-900">
       <p className="bg-primary-800 py-2 px-10 w-full text-primary-200">
@@ -12,7 +15,8 @@ function CheckInDetails({ cabin = {} }) {
       <div className="flex flex-col gap-3 py-5 px-10">
         <SelectBox
           label="How many guests?"
-          value={0}
+          value={guestCount}
+          setValue={setGuestCount}
           options={[
             { label: "Select number of guests...", value: 0, disabled: true },
             ...Array.from({ length: maxCapacity }).map((item, index) => ({

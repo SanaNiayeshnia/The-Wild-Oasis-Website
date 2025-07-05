@@ -1,17 +1,19 @@
 "use client";
-import { useState } from "react";
 import { Calendar } from "react-multi-date-picker";
 import styles from "./customeDatePicker.module.scss";
 import { differenceInCalendarDays } from "date-fns";
 import toast from "react-hot-toast";
 import { HiMiniInformationCircle } from "react-icons/hi2";
+import useReservationContext from "@/app/_contexts/reservationContext/useReservationContext";
+import { useEffect } from "react";
 
 function CustomDatePicker({
   minRangeLength = 1,
   maxRangeLength = Infinity,
-  range = false,
+  cabinId = null,
 }) {
-  const [value, setValue] = useState([]);
+  const { bookingRange, setBookingRange, setBookingCabin } =
+    useReservationContext();
 
   function onChange(value) {
     const rangeLength = differenceInCalendarDays(value?.[1], value?.[0]);
@@ -28,9 +30,10 @@ function CustomDatePicker({
         rangeLength <= maxRangeLength) ||
       value.length === 1
     ) {
-      setValue(value);
+      setBookingRange(value);
+      setBookingCabin(cabinId);
     } else {
-      setValue([]);
+      setBookingRange([]);
       toast(
         `You should select between ${minRangeLength} to ${maxRangeLength} days.`,
         {
@@ -44,9 +47,9 @@ function CustomDatePicker({
   return (
     <div className={`p-3 grid place-items-center`}>
       <Calendar
-        value={value}
-        onChange={(value) => (range ? onChange(value) : setValue(value))}
-        range={range}
+        value={bookingRange}
+        onChange={(value) => onChange(value)}
+        range
         className={styles.customDatePicker}
         minDate={new Date()}
       />
