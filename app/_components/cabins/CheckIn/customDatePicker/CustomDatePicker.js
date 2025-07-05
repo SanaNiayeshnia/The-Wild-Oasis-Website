@@ -7,12 +7,12 @@ import toast from "react-hot-toast";
 import { HiMiniInformationCircle } from "react-icons/hi2";
 
 function CustomDatePicker({
-  value,
-  setValue,
   minRangeLength = 1,
   maxRangeLength = Infinity,
   range = false,
 }) {
+  const [value, setValue] = useState([]);
+
   function onChange(value) {
     const rangeLength = differenceInCalendarDays(value?.[1], value?.[0]);
     console.log(

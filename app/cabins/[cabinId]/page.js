@@ -1,15 +1,9 @@
-import { TextExpander } from "@/app/_components/TextExpander";
-import { getCabin, getCabins, getSettings } from "@/app/_lib/data_services";
-import Image from "next/image";
-import { HiEyeOff, HiLocationMarker } from "react-icons/hi";
-import {
-  HiChevronDoubleLeft,
-  HiChevronDoubleRight,
-  HiStar,
-  HiUsers,
-} from "react-icons/hi2";
-import * as React from "react";
+import { getCabin, getCabins } from "@/app/_lib/data_services";
+import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi2";
+import { Suspense } from "react";
 import CheckIn from "@/app/_components/cabins/CheckIn/CheckIn";
+import CabinDetails from "@/app/_components/cabins/CabinDetails";
+import Loader from "@/app/_components/Loader";
 
 export async function generateMetadata({ params }) {
   const { name } = await getCabin(params?.cabinId);
@@ -28,67 +22,18 @@ export async function generateStaticParams() {
 
 async function Page({ params }) {
   const cabin = await getCabin(params?.cabinId);
-  const settings = await getSettings();
-
-  const priceWithDiscount = Math?.floor(
-    (cabin?.regularPrice * (100 - cabin?.discount)) / 100
-  );
 
   return (
     <div className="mt-4 mb-10">
-      <div className="flex border-2 border-primary-800 rounded">
-        <div className="relative min-w-96 min-h-[450px] border-r-2 border-primary-800">
-          <Image
-            src={cabin?.image}
-            fill
-            alt={cabin?.name}
-            className="object-cover transition-all duration-300"
-          />
-        </div>
-        <div className="flex flex-col justify-around gap-3 py-5 px-7">
-          <h1 className="text-5xl font-bold text-accent-200">
-            Cabin {cabin?.name}
-          </h1>
-          <TextExpander>{cabin?.description}</TextExpander>
-          <div className="flex items-end justify-between">
-            <div className="flex flex-col gap-1.5 [&_span]:text-white [&_svg]:text-lg [&_svg]:text-primary-500">
-              <p className="flex items-center gap-2 ">
-                <HiUsers />
-                For up to <span>{cabin?.maxCapacity}</span> guests
-              </p>
-              <p className="flex items-center gap-2 ">
-                <HiLocationMarker />
-                Located in the heart of the <span>Dolomites (Italy)</span>
-              </p>
-              <p className="flex items-center gap-2 ">
-                <HiEyeOff />
-                Privacy <span>100%</span> guaranteed
-              </p>
-            </div>
-            <div className="flex flex-col">
-              <p className="flex gap-2 items-end">
-                <span className="text-5xl text-white">
-                  ${priceWithDiscount}
-                </span>
-                / night
-              </p>
-              {cabin?.discount > 0 && (
-                <span className="flex items-center gap-1 text-accent-400">
-                  <HiStar className="text-lg" />
-                  <span className="line-through">${cabin?.regularPrice}</span> (
-                  {cabin?.discount}% off)
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+      <CabinDetails cabin={cabin} />
       <p className="text-4xl my-10 [&_svg]:text-xl items-center flex justify-center text-accent-400 font-medium ">
         <HiChevronDoubleLeft />
         Reserve {cabin?.name} today. Pay on arrival
         <HiChevronDoubleRight />
       </p>
-      <CheckIn settings={settings} />
+      <Suspense fallback={<Loader />}>
+        <CheckIn cabin={cabin} />
+      </Suspense>
     </div>
   );
 }

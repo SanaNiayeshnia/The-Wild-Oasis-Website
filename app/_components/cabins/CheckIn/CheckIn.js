@@ -1,21 +1,17 @@
-"use client";
 import { HiX } from "react-icons/hi";
 import CheckInDetails from "./CheckInDetails";
 import CustomDatePicker from "./customDatePicker/CustomDatePicker";
-import { useState } from "react";
-import { addDays } from "date-fns";
+import { getSettings } from "@/app/_lib/data_services";
 
-function CheckIn({ settings }) {
+async function CheckIn({ cabin = {} }) {
+  const settings = await getSettings();
   const { minBookingLength, maxBookingLength, maxGuestsPerBooking } = settings;
-  const [selectedDate, setSelectedDate] = useState([]);
-  console.log(minBookingLength, maxBookingLength, selectedDate);
+  console.log(minBookingLength, maxBookingLength);
 
   return (
     <form className="flex min-h-80 border-2 border-primary-800 w-full">
       <div className="flex flex-col w-1/2 justify-between">
         <CustomDatePicker
-          value={selectedDate}
-          setValue={setSelectedDate}
           minRangeLength={minBookingLength}
           maxRangeLength={maxBookingLength}
           range
@@ -36,7 +32,7 @@ function CheckIn({ settings }) {
           <p className="font-semibold text-xl">Total $465</p>
         </div>
       </div>
-      <CheckInDetails />
+      <CheckInDetails cabin={cabin} />
     </form>
   );
 }

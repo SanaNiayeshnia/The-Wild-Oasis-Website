@@ -2,7 +2,8 @@ import FormField from "../../accountProfile/FormField";
 import { SelectBox } from "../../accountProfile/SelectBox";
 import Button from "../../Button";
 
-function CheckInDetails() {
+function CheckInDetails({ cabin = {} }) {
+  const { maxCapacity } = cabin;
   return (
     <div className="flex flex-col flex-grow bg-primary-900">
       <p className="bg-primary-800 py-2 px-10 w-full text-primary-200">
@@ -14,6 +15,10 @@ function CheckInDetails() {
           value={0}
           options={[
             { label: "Select number of guests...", value: 0, disabled: true },
+            ...Array.from({ length: maxCapacity }).map((item, index) => ({
+              label: `${index + 1} guests`,
+              value: index + 1,
+            })),
           ]}
         />
         <FormField
