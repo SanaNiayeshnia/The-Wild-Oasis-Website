@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { TextExpander } from "../TextExpander";
 import { HiStar, HiUsers } from "react-icons/hi2";
 import { HiEyeOff, HiLocationMarker } from "react-icons/hi";
+import { TextExpander } from "../../TextExpander";
 
 function CabinDetails({ cabin = {} }) {
   const { image, name, description, maxCapacity, discount, regularPrice } =

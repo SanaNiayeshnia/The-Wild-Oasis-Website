@@ -1,6 +1,6 @@
-import FormField from "../../accountProfile/FormField";
-import { SelectBox } from "../../accountProfile/SelectBox";
-import Button from "../../Button";
+import FormField from "@/app/_components/accountProfile/FormField";
+import { SelectBox } from "@/app/_components/accountProfile/SelectBox";
+import Button from "@/app/_components/Button";
 
 function CheckInDetails({ cabin = {} }) {
   const { maxCapacity } = cabin;

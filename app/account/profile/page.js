@@ -13,6 +13,7 @@ function Page() {
         <br />
         See you soon.
       </p>
+
       <UpdateProfileForm>
         <SelectCountry label="Where are you from?" />
       </UpdateProfileForm>
