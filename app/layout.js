@@ -3,6 +3,7 @@ import "@/app/_styles/globals.css";
 import { Josefin_Sans } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import ReservationContextProvider from "./_contexts/reservationContext/ReservationContextProvider";
+import { auth } from "./_lib/auth";
 
 const josefin = Josefin_Sans({ subsets: ["latin"], display: "swap" });
 
@@ -14,7 +15,9 @@ export const metadata = {
   description: "An App to book The Wild Oasis Hotel Cabins",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const session = await auth();
+
   return (
     <html lang="en">
       <body className={`${josefin?.className} bg-primary-950 relative`}>
@@ -33,7 +36,7 @@ export default function RootLayout({ children }) {
           }}
         />
         <div className="min-h-screen flex flex-col max-w-7xl mx-auto px-6 ">
-          <TopNavigation />
+          <TopNavigation user={session?.user} />
           <main className=" h-full flex-grow text-primary-100 flex flex-col">
             <ReservationContextProvider>{children}</ReservationContextProvider>
           </main>
