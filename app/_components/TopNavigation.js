@@ -22,7 +22,7 @@ function TopNavigation({ user = null }) {
     { text: "Cabins", href: "/cabins" },
     { text: "About", href: "/about" },
     {
-      text: isAuthenticated ? "Guest Area" : "Sign in | Sign up",
+      text: isAuthenticated ? "Guest Area" : "Sign In",
       href: "/account",
       image: isAuthenticated ? user?.image : null,
     },

@@ -2,9 +2,11 @@ import { HiX } from "react-icons/hi";
 import CheckInDetails from "./CheckInDetails";
 import CustomDatePicker from "./customDatePicker/CustomDatePicker";
 import { getSettings } from "@/app/_lib/data_services";
+import { auth } from "@/app/_lib/auth";
 
 async function CheckIn({ cabin = {} }) {
   const settings = await getSettings();
+  const session = await auth();
   const { minBookingLength, maxBookingLength, maxGuestsPerBooking } = settings;
   console.log(minBookingLength, maxBookingLength);
 
@@ -33,7 +35,8 @@ async function CheckIn({ cabin = {} }) {
           <p className="font-semibold text-xl">Total $465</p>
         </div>
       </div>
-      <CheckInDetails cabin={cabin} />
+
+      <CheckInDetails cabin={cabin} user={session?.user} />
     </form>
   );
 }
