@@ -3,6 +3,7 @@ import { auth } from "../_lib/auth";
 export const metadata = { title: "Account" };
 async function Page() {
   const session = await auth();
+  console.log(session);
 
   return (
     <div>

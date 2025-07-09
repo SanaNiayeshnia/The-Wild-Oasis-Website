@@ -19,7 +19,7 @@ function SideNavigation({ items = [] }) {
         ))}
       </ul>
       <form action={signOutAction}>
-        <button className="flex items-center w-full justify-center gap-2 cursor-pointer">
+        <button className="flex items-center hover:gap-4 transition-all duration-300 w-full justify-center gap-2 cursor-pointer">
           <PiSignOutBold className="text-xl text-primary-500 " />
           sign out
         </button>

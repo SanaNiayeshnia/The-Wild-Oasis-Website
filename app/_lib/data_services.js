@@ -76,3 +76,17 @@ export async function getBookedDatesByCabinId(cabinId) {
 
   return bookedDates;
 }
+
+export async function getGuest(email) {
+  const { data: guest, error } = await supabase
+    .from("guests")
+    .select("*")
+    .eq("email", email)
+    .single();
+  if (error) throw new Error(error.message);
+  return guest;
+}
+
+export async function createAGuest({ email, fullName }) {
+  await supabase.from("guests").insert([{ email, fullName }]);
+}

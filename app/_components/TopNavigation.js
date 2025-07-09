@@ -4,13 +4,7 @@ import Link from "next/link";
 import Logo from "./Logo";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-
-const topNavRoutes = [
-  { text: "Home", href: "/" },
-  { text: "Cabins", href: "/cabins" },
-  { text: "About", href: "/about" },
-  { text: "Guest Area", href: "/account" },
-];
+import { PiSignInBold } from "react-icons/pi";
 
 function TopNavigation({ user = null }) {
   const pathname = usePathname();
@@ -22,7 +16,13 @@ function TopNavigation({ user = null }) {
     { text: "Cabins", href: "/cabins" },
     { text: "About", href: "/about" },
     {
-      text: isAuthenticated ? "Guest Area" : "Sign In",
+      text: isAuthenticated ? (
+        "Guest Area"
+      ) : (
+        <p className="flex items-center gap-2">
+          <PiSignInBold className="text-lg" /> Sign In
+        </p>
+      ),
       href: "/account",
       image: isAuthenticated ? user?.image : null,
     },
