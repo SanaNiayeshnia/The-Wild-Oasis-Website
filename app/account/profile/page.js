@@ -1,7 +1,13 @@
 import { SelectCountry } from "@/app/_components/accountProfile/SelectCountry";
 import UpdateProfileForm from "@/app/_components/accountProfile/UpdateProfileForm";
+import { auth } from "@/app/_lib/auth";
+import { getGuest } from "@/app/_lib/data_services";
 
-function Page() {
+async function Page() {
+  const session = await auth();
+  const guest = await getGuest(session?.user?.email);
+  console.log(guest);
+
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-accent-400 text-2xl font-semibold">
@@ -14,8 +20,11 @@ function Page() {
         See you soon.
       </p>
 
-      <UpdateProfileForm>
-        <SelectCountry label="Where are you from?" />
+      <UpdateProfileForm guest={guest}>
+        <SelectCountry
+          defaultValue={guest?.nationality || ""}
+          key={guest?.nationality || "form"}
+        />
       </UpdateProfileForm>
     </div>
   );
