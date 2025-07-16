@@ -1,5 +1,16 @@
-function Page() {
-  return <div>reservations</div>;
+import ReservationCard from "@/app/_components/accountReservations/ReservationCard";
+import { getUsersReservations } from "@/app/_lib/data_services";
+
+async function Page() {
+  const bookings = await getUsersReservations();
+  console.log("bookings", bookings);
+  return (
+    <div className="flex flex-col gap-4 pr-8">
+      {bookings?.map((booking, index) => (
+        <ReservationCard key={index} booking={booking} />
+      ))}
+    </div>
+  );
 }
 
 export default Page;

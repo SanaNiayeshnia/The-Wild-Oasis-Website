@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import supabase from "./supabase";
+import { auth } from "./auth";
 
 export async function getCabins() {
   const { data: cabins, error } = await supabase
@@ -89,4 +90,14 @@ export async function getGuest(email) {
 
 export async function createAGuest({ email, fullName }) {
   await supabase.from("guests").insert([{ email, fullName }]);
+}
+
+export async function getUsersReservations() {
+  const session = await auth();
+  let { data: bookings, error } = await supabase
+    .from("bookings")
+    .select("*, cabins(*), guests(*)")
+    .eq("guestId", session?.user?.guestId);
+  if (error) throw new Error(error.message);
+  return bookings;
 }
