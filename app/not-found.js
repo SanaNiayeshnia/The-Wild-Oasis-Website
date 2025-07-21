@@ -1,4 +1,4 @@
-import Button from "./_components/Bbutton";
+import Button from "./_components/Button";
 
 function NotFound() {
   return (

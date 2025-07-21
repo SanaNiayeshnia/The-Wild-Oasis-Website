@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "./_components/Bbutton";
+import Button from "./_components/Button";
 
 function Error({ error, reset }) {
   return (

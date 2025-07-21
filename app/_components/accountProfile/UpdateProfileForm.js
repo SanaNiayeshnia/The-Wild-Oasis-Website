@@ -1,6 +1,6 @@
 "use client";
 import { useActionState } from "react";
-import Button from "../Bbutton";
+import Button from "../Button";
 import FormField from "./FormField";
 import { updateProfileAction } from "@/app/_lib/actions";
 import { PiSpinnerBold } from "react-icons/pi";
