@@ -8,7 +8,7 @@ export async function getCabins() {
     .select("*")
     .order("name");
   if (error) {
-    throw new Error("Couldn't fetch cabins", error);
+    throw new Error("Couldn't fetch cabins", error.message);
   }
   return cabins;
 }

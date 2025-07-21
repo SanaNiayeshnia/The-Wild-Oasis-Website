@@ -14,11 +14,16 @@ export async function generateMetadata({ params }) {
 }
 
 export async function generateStaticParams() {
-  const cabins = await getCabins();
-  const staticParams = cabins?.map((cabin) => ({
-    cabinId: String(cabin?.id),
-  }));
-  return staticParams;
+  try {
+    const cabins = await getCabins();
+    const staticParams = cabins?.map((cabin) => ({
+      cabinId: String(cabin?.id),
+    }));
+    return staticParams;
+  } catch (err) {
+    console.error("Error in generateStaticParams:", err);
+    return [];
+  }
 }
 
 async function Page({ params }) {
