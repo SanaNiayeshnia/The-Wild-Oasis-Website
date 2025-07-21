@@ -1,6 +1,6 @@
 import Image from "next/image";
 import bg from "@/public/bg.png";
-import Button from "./_components/Button";
+import Button from "./_components/Bbutton";
 
 export default function Home() {
   return (

@@ -1,7 +1,7 @@
 "use client";
 import FormField from "@/app/_components/accountProfile/FormField";
 import { SelectBox } from "@/app/_components/accountProfile/SelectBox";
-import Button from "@/app/_components/Button";
+import Button from "@/app/_components/Bbutton";
 import Link from "next/link";
 import { useState } from "react";
 
