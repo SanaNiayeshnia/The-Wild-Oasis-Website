@@ -7,7 +7,6 @@ export const metadata = {
 
 async function Page() {
   const bookings = await getUsersReservations();
-  console.log("bookings", bookings);
 
   return (
     <div className="flex flex-col gap-4 pr-8">

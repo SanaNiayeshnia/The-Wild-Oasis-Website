@@ -8,7 +8,7 @@ import { PiSpinnerBold } from "react-icons/pi";
 function UpdateProfileForm({ guest = {}, children }) {
   const [state, formAction, isPending] = useActionState(
     updateProfileAction,
-    guest
+    null
   );
   console.log(guest);
 
