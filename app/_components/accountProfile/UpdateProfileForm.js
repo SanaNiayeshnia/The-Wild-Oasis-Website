@@ -3,7 +3,6 @@ import { useActionState } from "react";
 import Button from "../Button";
 import FormField from "./FormField";
 import { updateProfileAction } from "@/app/_lib/actions";
-import { useFormStatus } from "react-dom";
 import { PiSpinnerBold } from "react-icons/pi";
 
 function UpdateProfileForm({ guest = {}, children }) {
@@ -16,7 +15,7 @@ function UpdateProfileForm({ guest = {}, children }) {
   return (
     <form
       action={formAction}
-      className="p-4 flex flex-col gap-4 bg-primary-900 rounded-md"
+      className="p-4 flex flex-col gap-4 bg-primary-900 rounded-md "
     >
       <FormField
         label="Full name"
@@ -41,7 +40,7 @@ function UpdateProfileForm({ guest = {}, children }) {
       <FormField type="hidden" name="guestId" defaultValue={guest?.id} />
       <Button
         type="submit"
-        className="self-end mt-2 !py-3 !px-4 flex items-center gap-2"
+        className="self-end  !py-3 !px-4 flex items-center gap-2"
         disabled={isPending}
       >
         {isPending && <PiSpinnerBold className="animate-spin text-xl" />}

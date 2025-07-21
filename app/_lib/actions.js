@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { signIn, signOut } from "./auth";
+import { auth, signIn, signOut } from "./auth";
 import supabase from "./supabase";
 
 export async function signInAction() {
@@ -23,4 +23,16 @@ export async function updateProfileAction(prevState, formData) {
     .eq("id", guestId);
   if (error) throw new Error(error.message);
   revalidatePath("/account/profile");
+}
+
+export async function deleteReservation(bookingId) {
+  const session = await auth();
+  if (!session) throw new Error("You're not logged in!");
+
+  const { error } = await supabase
+    .from("bookings")
+    .delete()
+    .eq("id", bookingId);
+  if (error) throw new Error(error.message);
+  revalidatePath("/account/reservations");
 }

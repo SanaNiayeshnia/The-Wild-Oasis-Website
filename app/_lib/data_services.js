@@ -97,7 +97,8 @@ export async function getUsersReservations() {
   let { data: bookings, error } = await supabase
     .from("bookings")
     .select("*, cabins(*), guests(*)")
-    .eq("guestId", session?.user?.guestId);
+    .eq("guestId", session?.user?.guestId)
+    .order("created_at", { ascending: false });
   if (error) throw new Error(error.message);
   return bookings;
 }

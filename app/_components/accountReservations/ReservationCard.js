@@ -6,6 +6,7 @@ import moment from "moment";
 
 function ReservationCard({ booking = {} }) {
   const {
+    id,
     cabins,
     guests,
     numGuests,
@@ -22,7 +23,7 @@ function ReservationCard({ booking = {} }) {
     <div className="flex border-primary-900  border-2 divide-x-2 divide-primary-900 rounded-sm">
       <Link
         href={`/cabins/${cabins?.id}`}
-        className="w-32 aspect-square relative group overflow-hidden"
+        className="w-32 aspect-square relative group overflow-hidden shrink-0"
       >
         <Image
           src={cabins?.image}
@@ -62,7 +63,9 @@ function ReservationCard({ booking = {} }) {
 
         <div className="flex justify-between items-center">
           <p className="">
-            <span className="text-accent-400 text-lg">${totalPrice}</span>
+            <span className="text-accent-400 text-lg">
+              ${totalPrice?.toLocaleString()}
+            </span>
             {"  "}•{"  "}
             <span className="text-primary-200">{numGuests} guests</span>
           </p>
@@ -71,7 +74,9 @@ function ReservationCard({ booking = {} }) {
           </p>
         </div>
       </div>
-      <ReservationCardsBtns />
+      {!isBookingPast && status === "unconfirmed" && (
+        <ReservationCardsBtns bookingId={id} />
+      )}
     </div>
   );
 }

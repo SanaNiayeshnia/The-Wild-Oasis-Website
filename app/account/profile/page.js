@@ -3,13 +3,16 @@ import UpdateProfileForm from "@/app/_components/accountProfile/UpdateProfileFor
 import { auth } from "@/app/_lib/auth";
 import { getGuest } from "@/app/_lib/data_services";
 
+export const metadata = {
+  title: "Profile",
+};
 async function Page() {
   const session = await auth();
   const guest = await getGuest(session?.user?.email);
   console.log(guest);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 max-w-[700px]">
       <h1 className="text-accent-400 text-2xl font-semibold">
         Update your guest profile
       </h1>
