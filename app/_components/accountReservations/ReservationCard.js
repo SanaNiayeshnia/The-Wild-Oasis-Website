@@ -20,7 +20,10 @@ function ReservationCard({ booking = {} }) {
 
   const isBookingPast = new Date(startDate) < new Date();
   return (
-    <div className="flex border-primary-900  border-2 divide-x-2 divide-primary-900 rounded-sm">
+    <Link
+      href={`/account/reservations/${id}`}
+      className="flex border-primary-900 hover:bg-primary-900 duration-300 transition-all  border-2 divide-x-2 divide-primary-900 rounded-sm"
+    >
       <Link
         href={`/cabins/${cabins?.id}`}
         className="w-32 aspect-square relative group overflow-hidden shrink-0"
@@ -77,7 +80,7 @@ function ReservationCard({ booking = {} }) {
       {!isBookingPast && status === "unconfirmed" && (
         <ReservationCardsBtns bookingId={id} />
       )}
-    </div>
+    </Link>
   );
 }
 

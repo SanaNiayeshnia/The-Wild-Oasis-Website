@@ -37,3 +37,18 @@ export async function deleteReservation(bookingId) {
   if (error) throw new Error(error.message);
   revalidatePath("/account/reservations");
 }
+
+export async function updateReservation(formData) {
+  const { error } = await supabase
+    .from("bookings")
+    .update({
+      numGuests: formData.get("numGuests"),
+      observation: formData.get("observation"),
+    })
+    .eq("id", formData.get("id"))
+    .select();
+
+  if (error) throw new Error(error.message);
+  revalidatePath("/account/reservations");
+  revalidatePath(`/account/reservations/${formData.get("id")}`);
+}

@@ -9,7 +9,7 @@ import { PiSpinnerBold } from "react-icons/pi";
 function CheckInDetails({ reservation, cabin = {}, user = null }) {
   const isEditSession = Boolean(reservation?.id);
   const { maxCapacity } = cabin;
-  const { isPending } = useFormStatus();
+  const { pending } = useFormStatus();
 
   return (
     <div className="flex flex-col flex-grow bg-primary-900">
@@ -35,19 +35,19 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
                   value: index + 1,
                 })),
               ]}
+              key={`numGuests-${reservation?.numGuests || ""}`}
             />
             <FormField
               label="Anything we should know about your stay?"
               type="textarea"
               placeholder="Any pets, allergies, special requirments, etc?"
               defaultValue={reservation?.observation}
+              name="observation"
             />
             <div className="mt-3 self-end flex items-center gap-4">
               {!isEditSession && <p>Start by picking dates</p>}
               <Button className="!py-3 !px-4" type="submit">
-                {isPending && (
-                  <PiSpinnerBold className="animate-spin text-xl" />
-                )}
+                {pending && <PiSpinnerBold className="animate-spin text-xl" />}
                 {isEditSession ? "Update" : "Reserve now"}
               </Button>
             </div>
