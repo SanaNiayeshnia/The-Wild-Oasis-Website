@@ -8,6 +8,7 @@ function FormField({
   name = "",
   placeholder = "",
   disabled = false,
+  defaultValue = "",
   ...rest
 }) {
   const { pending } = useFormStatus();
@@ -26,12 +27,14 @@ function FormField({
           name={name}
           placeholder={placeholder}
           disabled={disabled || pending}
+          defaultValue={defaultValue}
           {...rest}
         />
       ) : (
         <input
           type={type}
           name={name}
+          defaultValue={defaultValue}
           className={`${classes} ${
             type === "number"
               ? "appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-moz-appearance:textfield]"

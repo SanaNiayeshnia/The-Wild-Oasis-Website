@@ -102,3 +102,14 @@ export async function getUsersReservations() {
   if (error) throw new Error(error.message);
   return bookings;
 }
+
+export async function getReservation(reservationId) {
+  let { data: booking, error } = await supabase
+    .from("bookings")
+    .select("*, cabins(*), guests(*)")
+    .eq("id", reservationId)
+    .single();
+
+  if (error) notFound();
+  return booking;
+}

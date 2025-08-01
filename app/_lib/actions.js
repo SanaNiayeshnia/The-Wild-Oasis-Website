@@ -32,7 +32,8 @@ export async function deleteReservation(bookingId) {
   const { error } = await supabase
     .from("bookings")
     .delete()
-    .eq("id", bookingId);
+    .eq("id", bookingId)
+    .eq("guestId", session.user.guestId);
   if (error) throw new Error(error.message);
   revalidatePath("/account/reservations");
 }

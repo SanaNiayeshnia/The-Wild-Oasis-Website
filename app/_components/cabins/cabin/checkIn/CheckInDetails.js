@@ -3,24 +3,27 @@ import FormField from "@/app/_components/accountProfile/FormField";
 import { SelectBox } from "@/app/_components/accountProfile/SelectBox";
 import Button from "@/app/_components/Button";
 import Link from "next/link";
-import { useState } from "react";
+import { useFormStatus } from "react-dom";
+import { PiSpinnerBold } from "react-icons/pi";
 
-function CheckInDetails({ cabin = {}, user = null }) {
+function CheckInDetails({ reservation, cabin = {}, user = null }) {
+  const isEditSession = Boolean(reservation?.id);
   const { maxCapacity } = cabin;
-  const [guestCount, setGuestCount] = useState(0);
+  const { isPending } = useFormStatus();
+
   return (
     <div className="flex flex-col flex-grow bg-primary-900">
       {user ? (
         <>
           {" "}
           <p className="bg-primary-800 py-2 px-10 w-full text-primary-200">
-            Logged in as {user?.name}
+            {isEditSession ? "Reserved by" : "Logged in as"} {user?.name}
           </p>
           <div className="flex flex-col gap-3 py-5 px-10">
             <SelectBox
               label="How many guests?"
-              value={guestCount}
-              setValue={setGuestCount}
+              name="numGuests"
+              defaultValue={reservation?.numGuests || ""}
               options={[
                 {
                   label: "Select number of guests...",
@@ -37,10 +40,16 @@ function CheckInDetails({ cabin = {}, user = null }) {
               label="Anything we should know about your stay?"
               type="textarea"
               placeholder="Any pets, allergies, special requirments, etc?"
+              defaultValue={reservation?.observation}
             />
             <div className="mt-3 self-end flex items-center gap-4">
-              <p>Start by picking dates</p>
-              <Button className="!py-3 !px-4">Reserve now</Button>
+              {!isEditSession && <p>Start by picking dates</p>}
+              <Button className="!py-3 !px-4" type="submit">
+                {isPending && (
+                  <PiSpinnerBold className="animate-spin text-xl" />
+                )}
+                {isEditSession ? "Update" : "Reserve now"}
+              </Button>
             </div>
           </div>
         </>

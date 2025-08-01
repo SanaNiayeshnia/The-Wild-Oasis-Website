@@ -10,7 +10,6 @@ function UpdateProfileForm({ guest = {}, children }) {
     updateProfileAction,
     null
   );
-  console.log(guest);
 
   return (
     <form
