@@ -5,7 +5,7 @@ import { createAGuest, getGuest } from "./data_services";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
   callbacks: {
-    authorized: async ({ auth }) => !!auth,
+    authorized: async ({ auth }) => !!auth?.user,
     signIn: async ({ user }) => {
       try {
         const existingUser = await getGuest(user?.email);

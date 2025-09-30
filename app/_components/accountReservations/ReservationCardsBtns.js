@@ -1,5 +1,6 @@
 "use client";
 import { deleteReservation } from "@/app/_lib/actions";
+import Link from "next/link";
 import { useTransition } from "react";
 import { PiSpinnerBold } from "react-icons/pi";
 import { RiDeleteBin5Fill, RiEdit2Fill } from "react-icons/ri";
@@ -16,10 +17,13 @@ function ReservationCardsBtns({ bookingId = undefined }) {
 
   return (
     <div className=" divide-y-2 flex flex-col min-w-30 justify-center divide-primary-900">
-      <button className={`${btnClasses} cursor-pointer`}>
+      <Link
+        href={`/account/reservations/${bookingId}`}
+        className={`${btnClasses} cursor-pointer`}
+      >
         <RiEdit2Fill className="group-hover:rotate-[360deg] transition-all duration-300" />
         Edit
-      </button>
+      </Link>
       <button
         className={`${btnClasses} ${!isPendingDelete ? "cursor-pointer" : ""}`}
         onClick={handleDeleteBooking}
