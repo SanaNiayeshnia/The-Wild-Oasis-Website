@@ -13,6 +13,7 @@ export async function getCabins() {
     .from("cabins")
     .select("*")
     .order("name");
+  console.log(cabins, error);
   if (error) {
     throw new Error("Couldn't fetch cabins", error.message);
   }
