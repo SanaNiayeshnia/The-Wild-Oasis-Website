@@ -3,17 +3,10 @@ import supabase from "./supabase";
 import { auth } from "./auth";
 
 export async function getCabins() {
-  console.log("SUPABASE_URL", process.env.SUPABASE_URL);
-  console.log(
-    "SUPABASE_KEY",
-    process.env.SUPABASE_KEY ? "Loaded ✅" : "Missing ❌"
-  );
-
   const { data: cabins, error } = await supabase
     .from("cabins")
     .select("*")
     .order("name");
-  console.log(cabins, error);
   if (error) {
     throw new Error("Couldn't fetch cabins", error.message);
   }

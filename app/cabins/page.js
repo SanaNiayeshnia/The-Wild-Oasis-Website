@@ -34,14 +34,7 @@ function Page({ searchParams }) {
       <div className="flex justify-end">
         <FilterBox items={filterByCapacity} filterName="capacity" />
       </div>
-      <Suspense
-        fallback={
-          <div className="flex-grow place-items-center">
-            <Loader />
-          </div>
-        }
-        key={capacity}
-      >
+      <Suspense fallback={<CabinList isLoading />} key={capacity}>
         <CabinList capacity={capacity} />
       </Suspense>
       <ReservationToast />

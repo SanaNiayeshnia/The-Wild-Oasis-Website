@@ -1,12 +1,12 @@
 import { getCabins } from "@/app/_lib/data_services";
 import CabinCard from "./CabinCard";
 
-async function CabinList({ capacity = "all" }) {
-  const cabins = await getCabins();
-  if (cabins?.length === 0) return null;
+async function CabinList({ capacity = "all", isLoading = false }) {
+  const cabins = isLoading ? Array.from({ length: 12 }) : await getCabins();
+  if (!isLoading && cabins?.length === 0) return null;
 
   let filteredCabins;
-  if (capacity === "all") {
+  if (capacity === "all" || isLoading) {
     filteredCabins = cabins;
   } else if (capacity === "small")
     filteredCabins = cabins.filter(
@@ -25,7 +25,7 @@ async function CabinList({ capacity = "all" }) {
     <div className="grid grid-cols-3 gap-6 mb-8">
       {filteredCabins?.length > 0 ? (
         filteredCabins?.map((cabin, index) => (
-          <CabinCard key={index} cabin={cabin} />
+          <CabinCard key={index} cabin={cabin} isLoading={isLoading} />
         ))
       ) : (
         <p className="col-span-3 text-center py-8 text-accent-300">
