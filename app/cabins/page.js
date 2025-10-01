@@ -31,7 +31,7 @@ function Page({ searchParams }) {
           vacation. Welcome to paradise.
         </p>
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-center md:justify-end">
         <FilterBox items={filterByCapacity} filterName="capacity" />
       </div>
       <Suspense fallback={<CabinList isLoading />} key={capacity}>

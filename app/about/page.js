@@ -13,7 +13,7 @@ async function Page() {
     <div className="pb-14 pt-6">
       <section className="flex flex-col-reverse lg:flex-row gap-10 lg:gap-20 items-center">
         <div className="text-justify flex flex-col items-center lg:items-start gap-6 ">
-          <h1 className="text-2xl font-semibold text-accent-400">
+          <h1 className="text-2xl text-center md:text-left font-semibold text-accent-400">
             Welcome to The Wild Oasis
           </h1>
           <p>
@@ -52,7 +52,7 @@ async function Page() {
         />
 
         <div className="text-justify flex flex-col items-center lg:items-start gap-6 ">
-          <h1 className="text-2xl font-semibold text-accent-400">
+          <h1 className="text-2xl text-center md:text-left font-semibold text-accent-400">
             Managed by our family since 1962
           </h1>
           <p>

@@ -5,6 +5,7 @@ import Logo from "./Logo";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { PiSignInBold } from "react-icons/pi";
+import { HiOutlineUserCircle, HiUserCircle } from "react-icons/hi2";
 
 function TopNavigation({ user = null }) {
   const pathname = usePathname();
@@ -17,14 +18,13 @@ function TopNavigation({ user = null }) {
     { text: "About", href: "/about" },
     {
       text: isAuthenticated ? (
-        "Guest Area"
+        <span className="hidden md:block">Guest Area</span>
       ) : (
         <p className="flex items-center gap-2">
           <PiSignInBold className="text-lg" /> Sign In
         </p>
       ),
       href: "/account",
-      image: isAuthenticated ? user?.image : null,
     },
   ];
 
@@ -35,7 +35,7 @@ function TopNavigation({ user = null }) {
       }`}
     >
       <Logo />
-      <ul className="flex items-center gap-8 [&_li]:hover:text-accent-400 transition-all duration-300 [&_li]:text-primary-50">
+      <ul className="flex items-center gap-4 md:gap-8 [&_li]:hover:text-accent-400 transition-all duration-300 [&_li]:text-primary-50">
         {topNavRoutes?.map((route, index) => (
           <li key={index} className="group">
             <Link
@@ -46,20 +46,31 @@ function TopNavigation({ user = null }) {
                   : ""
               }`}
             >
-              {route?.image && (
+              {route?.href === "/account" && isAuthenticated && user?.image ? (
                 <Image
-                  src={route?.image}
+                  src={user?.image}
                   alt={user?.name}
                   width="25"
                   height="25"
                   referrerPolicy="no-referrer"
-                  className={`rounded-full object-cover outline-2 transition-all duration-300 outline-offset-2  group-hover:outline-accent-400 ${
+                  className={`rounded-full shrink-0 object-cover outline-2 transition-all duration-300 outline-offset-2  group-hover:outline-accent-400 ${
                     route?.href === pathname
                       ? "outline-accent-400"
                       : "outline-white"
                   }`}
                 />
+              ) : route?.href === "/account" &&
+                isAuthenticated &&
+                !user?.image ? (
+                <HiOutlineUserCircle
+                  className={`text-3xl md:hidden ${
+                    route?.href === pathname ? "text-accent-400" : "text-white"
+                  }`}
+                />
+              ) : (
+                <></>
               )}
+
               {route?.text}
             </Link>
           </li>
