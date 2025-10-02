@@ -8,7 +8,7 @@ function SideNavigation({ items = [], onItemClick = () => {} }) {
   const pathname = usePathname();
   console.log(pathname);
   return (
-    <div className="flex h-full flex-col py-6 min-w-48 justify-between gap-2 ">
+    <div className="flex h-full flex-col py-6 min-w-40 justify-between gap-2 ">
       <ul className="flex flex-col gap-1 ">
         {items?.map((item, index) => (
           <li key={index} onClick={onItemClick}>

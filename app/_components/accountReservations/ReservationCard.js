@@ -20,10 +20,10 @@ function ReservationCard({ booking = {} }) {
 
   const isBookingPast = new Date(startDate) < new Date();
   return (
-    <div className="flex border-primary-900  border-2 divide-x-2 divide-primary-900 rounded-sm">
+    <div className="flex flex-col lg:flex-row border-primary-900  border-2 divide-y-2 lg:divide-x-2 divide-primary-900 overflow-hidden rounded-sm">
       <Link
         href={`/cabins/${cabins?.id}`}
-        className="w-32 aspect-square relative group overflow-hidden shrink-0"
+        className="lg:w-32 h-30 lg:h-full aspect-square relative group overflow-hidden shrink-0"
       >
         <Image
           src={cabins?.image}
@@ -34,7 +34,7 @@ function ReservationCard({ booking = {} }) {
         />
       </Link>
 
-      <div className=" flex flex-col flex-grow  justify-between py-2 px-3 min-w-[550px] ">
+      <div className=" flex flex-col flex-grow justify-between py-2 px-3 xl:min-w-[550px] ">
         <div className="space-y-1">
           <div className="flex justify-between items-center">
             <p className="font-semibold text-lg">

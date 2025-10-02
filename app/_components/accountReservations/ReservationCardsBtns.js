@@ -13,10 +13,10 @@ function ReservationCardsBtns({ bookingId = undefined }) {
       startDeleteTransition(() => deleteReservation(bookingId));
   }
 
-  const btnClasses = `py-2 px-3 flex-grow flex items-center justify-center  hover:bg-primary-900 transition-all duration-300 group gap-2`;
+  const btnClasses = `py-2 px-3 flex-grow flex shrink-0 items-center justify-center  hover:bg-primary-900 transition-all duration-300 group gap-2`;
 
   return (
-    <div className=" divide-y-2 flex flex-col min-w-30 justify-center divide-primary-900">
+    <div className="divide-x-2 lg:divide-y-2 flex lg:flex-col  justify-center divide-primary-900">
       <Link
         href={`/account/reservations/${bookingId}`}
         className={`${btnClasses} cursor-pointer`}

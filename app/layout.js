@@ -35,7 +35,7 @@ export default async function RootLayout({ children }) {
             },
           }}
         />
-        <div className="min-h-screen flex flex-col max-w-7xl mx-auto px-6 ">
+        <div className="min-h-screen flex flex-col max-w-7xl mx-auto px-4 md:px-6 ">
           <TopNavigation user={session?.user} />
           <main className=" h-full flex-grow text-primary-100 flex flex-col">
             <ReservationContextProvider>{children}</ReservationContextProvider>

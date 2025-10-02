@@ -15,8 +15,8 @@ function layout({ children }) {
   ];
 
   return (
-    <div className="flex flex-col py-3 md:py-0 md:flex-row gap-2 md:gap-8 flex-grow border-t-2 border-primary-900">
-      <div className="hidden md:block border-r-2 border-primary-900 pl-2  pr-4">
+    <div className="flex flex-col py-3 md:py-0 md:flex-row gap-2 md:gap-3 xl:gap-8 flex-grow border-t-2 border-primary-900">
+      <div className="hidden md:block border-r-2 border-primary-900 pl-2 pr-4">
         <SideNavigation items={sideNavItems} />
       </div>
       <AccountSheet items={sideNavItems} />

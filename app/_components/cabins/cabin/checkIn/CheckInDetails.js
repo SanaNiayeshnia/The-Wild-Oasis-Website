@@ -16,10 +16,10 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
       {user ? (
         <>
           {" "}
-          <p className="bg-primary-800 py-2 px-10 w-full text-primary-200">
+          <p className="bg-primary-800 py-2 px-4 sm:px-6 lg:px-10 w-full text-primary-200">
             {isEditSession ? "Reserved by" : "Logged in as"} {user?.name}
           </p>
-          <div className="flex flex-col gap-3 py-5 px-10">
+          <div className="flex flex-col gap-3 py-5 px-4 sm:px-6 lg:px-10">
             <SelectBox
               label="How many guests?"
               name="numGuests"
@@ -46,7 +46,7 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
             />
             <div className="mt-3 self-end flex items-center gap-4">
               {!isEditSession && <p>Start by picking dates</p>}
-              <Button className="!py-3 !px-4" type="submit">
+              <Button className="md:!py-3 md:!px-4" type="submit">
                 {pending && <PiSpinnerBold className="animate-spin text-xl" />}
                 {isEditSession ? "Update" : "Reserve now"}
               </Button>
