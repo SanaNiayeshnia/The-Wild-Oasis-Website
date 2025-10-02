@@ -4,14 +4,14 @@ import { PiSignOutBold } from "react-icons/pi";
 import { signOutAction } from "../_lib/actions";
 import { usePathname } from "next/navigation";
 
-function SideNavigation({ items = [] }) {
+function SideNavigation({ items = [], onItemClick = () => {} }) {
   const pathname = usePathname();
   console.log(pathname);
   return (
-    <div className="flex flex-col py-6 pl-2  pr-4  min-w-48 justify-between gap-2 border-r-2 border-primary-900 ">
+    <div className="flex h-full flex-col py-6 min-w-48 justify-between gap-2 ">
       <ul className="flex flex-col gap-1 ">
         {items?.map((item, index) => (
-          <li key={index}>
+          <li key={index} onClick={onItemClick}>
             <Link
               href={item?.link}
               className={`flex items-center gap-3 [&_svg]:text-xl py-2 px-2 rounded-md    transition-all duration-300 ${

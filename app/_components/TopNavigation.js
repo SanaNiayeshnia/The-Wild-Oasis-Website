@@ -30,7 +30,7 @@ function TopNavigation({ user = null }) {
 
   return (
     <div
-      className={`flex items-center gap-4 justify-between py-4 z-30 sticky top-0  ${
+      className={`flex items-center gap-4 justify-between py-3 z-30 sticky top-0  ${
         !isOnHomePage ? "bg-primary-950" : ""
       }`}
     >

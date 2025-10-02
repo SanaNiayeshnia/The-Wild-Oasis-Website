@@ -7,7 +7,7 @@ async function Page() {
 
   return (
     <div>
-      <h1 className="text-accent-400 text-2xl font-semibold">
+      <h1 className="text-accent-400 text-xl md:text-2xl font-semibold">
         Welcome, {session?.user?.name}
       </h1>
     </div>
