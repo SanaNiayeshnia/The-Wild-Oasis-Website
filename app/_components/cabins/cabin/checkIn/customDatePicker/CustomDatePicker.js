@@ -45,12 +45,12 @@ function CustomDatePicker({
     }
   }
   return (
-    <div className={`p-3 grid place-items-center`}>
+    <div className={`p-3 grid place-items-center relative`}>
       <Calendar
         value={bookingRange}
         onChange={(value) => onChange(value)}
         range
-        className={styles.customDatePicker}
+        className={`${styles.customDatePicker} !z-0`}
         minDate={new Date()}
       />
     </div>

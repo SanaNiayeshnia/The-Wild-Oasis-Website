@@ -2,6 +2,7 @@
 import FormField from "@/app/_components/accountProfile/FormField";
 import { SelectBox } from "@/app/_components/accountProfile/SelectBox";
 import Button from "@/app/_components/Button";
+import useReservationContext from "@/app/_contexts/reservationContext/useReservationContext";
 import Link from "next/link";
 import { useFormStatus } from "react-dom";
 import { PiSpinnerBold } from "react-icons/pi";
@@ -10,6 +11,7 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
   const isEditSession = Boolean(reservation?.id);
   const { maxCapacity } = cabin;
   const { pending } = useFormStatus();
+  const { bookingRange } = useReservationContext();
 
   return (
     <div className="flex flex-col flex-grow bg-primary-900">
@@ -45,7 +47,9 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
               name="observation"
             />
             <div className="mt-3 self-end flex items-center gap-4">
-              {!isEditSession && <p>Start by picking dates</p>}
+              {!isEditSession && bookingRange?.length === 0 && (
+                <p>Start by picking dates</p>
+              )}
               <Button className="md:!py-3 md:!px-4" type="submit">
                 {pending && <PiSpinnerBold className="animate-spin text-xl" />}
                 {isEditSession ? "Update" : "Reserve now"}

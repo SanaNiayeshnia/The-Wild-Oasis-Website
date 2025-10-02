@@ -33,9 +33,12 @@ async function Page({ params }) {
   return (
     <div className="mt-4 mb-10 grid place-items-center">
       <CabinDetails cabin={cabin} />
-      <p className="text-4xl my-10 [&_svg]:text-xl items-center flex justify-center text-accent-400 font-medium ">
+      <p className="text-2xl md:text-4xl my-6 md:my-10 [&_svg]:text-xl items-center flex justify-between w-full text-accent-400 font-medium text-center">
         <HiChevronDoubleLeft />
-        Reserve {cabin?.name} today. Pay on arrival
+        <div className="flex flex-col gap-2 md:flex-row px-2">
+          <span>Reserve {cabin?.name} today,</span>
+          <span>Pay on arrival</span>
+        </div>
         <HiChevronDoubleRight />
       </p>
       <Suspense fallback={<Loader />}>

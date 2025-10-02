@@ -11,8 +11,8 @@ async function CheckIn({ cabin = {} }) {
   console.log(minBookingLength, maxBookingLength);
 
   return (
-    <form className="flex min-h-80 border-2 border-primary-800 w-full">
-      <div className="flex flex-col w-1/2 justify-between">
+    <form className="flex flex-col md:flex-row min-h-80 border-2 border-primary-800 w-full">
+      <div className="flex flex-col md:w-1/2 justify-between">
         <CustomDatePicker
           minRangeLength={minBookingLength}
           maxRangeLength={maxBookingLength}
