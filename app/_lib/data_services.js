@@ -84,6 +84,7 @@ export async function getGuest(email) {
     .select("*")
     .eq("email", email)
     .maybeSingle();
+  console.log(guest);
   if (error) {
     console.error("Error fetching guest:", error);
     return null;

@@ -20,7 +20,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     session: async ({ session }) => {
       const guest = await getGuest(session?.user?.email);
-      session.user.guestId = guest.id;
+      session.user.guestId = guest?.id;
       return session;
     },
   },
