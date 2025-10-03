@@ -83,8 +83,11 @@ export async function getGuest(email) {
     .from("guests")
     .select("*")
     .eq("email", email)
-    .single();
-  if (error) throw new Error(error.message);
+    .maybeSingle();
+  if (error) {
+    console.error("Error fetching guest:", error);
+    return null;
+  }
   return guest;
 }
 
