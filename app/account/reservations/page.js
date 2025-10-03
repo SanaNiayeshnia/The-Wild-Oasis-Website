@@ -4,6 +4,7 @@ import { getUsersReservations } from "@/app/_lib/data_services";
 export const metadata = {
   title: "Reservations",
 };
+export const revalidate = 3600;
 
 async function Page() {
   const bookings = await getUsersReservations();

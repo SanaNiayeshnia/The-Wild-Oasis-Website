@@ -4,7 +4,7 @@ import aboutPic2 from "@/public/about-2.jpg";
 import Button from "../_components/Button";
 import { getCabins } from "../_lib/data_services";
 
-export const revalidate = 86400; //revalidate everyday
+export const revalidate = 3600;
 export const metadata = { title: "About" };
 async function Page() {
   const cabins = await getCabins();
