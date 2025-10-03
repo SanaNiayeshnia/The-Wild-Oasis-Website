@@ -13,7 +13,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           await createAGuest({ email: user?.email, fullName: user?.name });
         }
         return true;
-      } catch {
+      } catch (error) {
+        console.log(error);
         return false;
       }
     },
