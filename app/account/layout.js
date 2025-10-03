@@ -3,7 +3,7 @@ import { HiHome, HiCalendar, HiUser } from "react-icons/hi2";
 
 import AccountSheet from "../_components/accountSheet/AccountSheet";
 
-function layout({ children }) {
+function Layout({ children }) {
   const sideNavItems = [
     { title: "Home", icon: <HiHome />, link: "/account" },
     {
@@ -31,4 +31,4 @@ function layout({ children }) {
   );
 }
 
-export default layout;
+export default Layout;

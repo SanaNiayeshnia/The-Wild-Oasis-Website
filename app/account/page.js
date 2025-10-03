@@ -4,8 +4,6 @@ export const revalidate = 3600;
 export const metadata = { title: "Account" };
 async function Page() {
   const session = await auth();
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  console.log(session);
 
   return (
     <div>

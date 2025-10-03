@@ -41,7 +41,9 @@ function TopNavigation({ user = null }) {
             <Link
               href={route?.href}
               className={`transition-all duration-300 underline-offset-6 flex items-center gap-3 ${
-                route?.href === pathname
+                (route?.href === "/account" &&
+                  pathname.includes(route?.href)) ||
+                pathname === route?.href
                   ? "text-accent-400 underline font-bold"
                   : ""
               }`}
@@ -54,7 +56,7 @@ function TopNavigation({ user = null }) {
                   height="25"
                   referrerPolicy="no-referrer"
                   className={`rounded-full shrink-0 object-cover outline-2 transition-all duration-300 outline-offset-2  group-hover:outline-accent-400 ${
-                    route?.href === pathname
+                    pathname.includes(route?.href)
                       ? "outline-accent-400"
                       : "outline-white"
                   }`}
@@ -64,7 +66,9 @@ function TopNavigation({ user = null }) {
                 !user?.image ? (
                 <HiOutlineUserCircle
                   className={`text-3xl md:hidden ${
-                    route?.href === pathname ? "text-accent-400" : "text-white"
+                    pathname.includes(route?.href)
+                      ? "text-accent-400"
+                      : "text-white"
                   }`}
                 />
               ) : (
