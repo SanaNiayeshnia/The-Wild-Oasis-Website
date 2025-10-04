@@ -50,7 +50,7 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
               {!isEditSession && bookingRange?.length === 0 && (
                 <p>Start by picking dates</p>
               )}
-              <Button className="md:!py-3 md:!px-4" type="submit">
+              <Button size="small" type="submit">
                 {pending && <PiSpinnerBold className="animate-spin text-xl" />}
                 {isEditSession ? "Update" : "Reserve now"}
               </Button>

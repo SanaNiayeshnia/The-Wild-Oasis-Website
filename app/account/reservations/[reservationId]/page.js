@@ -14,7 +14,6 @@ async function Page({ params }) {
   const { reservationId } = await params;
   const booking = await getReservation(reservationId);
   const session = await auth();
-  console.log(booking);
 
   return (
     <form className="space-y-4" action={updateReservation}>
@@ -23,7 +22,13 @@ async function Page({ params }) {
         <Link href="/account/reservations">
           <TbArrowBackUp className="hover:text-white text-primary-500 transition-all duration-300 cursor-pointer text-3xl" />
         </Link>
-        Edit Reservation #{reservationId} for Cabin {booking?.cabins?.name}
+        Edit Reservation #{reservationId} for
+        <Link
+          href={`/cabins/${booking?.cabins?.id}`}
+          className="hover:text-white transition-colors duration-300"
+        >
+          Cabin {booking?.cabins?.name}
+        </Link>
       </h1>
       <CheckInDetails
         reservation={booking}

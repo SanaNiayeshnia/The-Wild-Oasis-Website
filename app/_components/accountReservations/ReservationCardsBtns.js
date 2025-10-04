@@ -1,19 +1,18 @@
 "use client";
-import { deleteReservation } from "@/app/_lib/actions";
 import Link from "next/link";
-import { useTransition } from "react";
 import { PiSpinnerBold } from "react-icons/pi";
 import { RiDeleteBin5Fill, RiEdit2Fill } from "react-icons/ri";
 import ConfirmationAlert from "../ConfirmationAlert";
+import { useTransition } from "react";
+import { deleteReservation } from "@/app/_lib/actions";
 
 function ReservationCardsBtns({ bookingId = undefined }) {
   const [isPendingDelete, startDeleteTransition] = useTransition();
+  const btnClasses = `py-2 px-3 flex-grow flex shrink-0 items-center justify-center  hover:bg-primary-900 transition-all duration-300 group gap-2`;
 
   function handleDeleteBooking() {
-    startDeleteTransition(() => deleteReservation(bookingId));
+    startDeleteTransition(async () => await deleteReservation(bookingId));
   }
-
-  const btnClasses = `py-2 px-3 flex-grow flex shrink-0 items-center justify-center  hover:bg-primary-900 transition-all duration-300 group gap-2`;
 
   return (
     <div className="divide-x-2 lg:divide-y-2 flex lg:flex-col  justify-center divide-primary-900">

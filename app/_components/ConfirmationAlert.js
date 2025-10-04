@@ -32,12 +32,12 @@ function ConfirmationAlert({
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="text-accent-950">
+            <AlertDialogCancel className="text-accent-950 cursor-pointer">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={onClick}
-              className="bg-accent-900 hover:bg-accent-950 transition-all duration-300"
+              className="bg-accent-900 cursor-pointer hover:bg-accent-950 transition-all duration-300"
             >
               Continue
             </AlertDialogAction>

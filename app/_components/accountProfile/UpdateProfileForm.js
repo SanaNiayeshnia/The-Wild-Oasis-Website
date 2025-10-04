@@ -39,7 +39,8 @@ function UpdateProfileForm({ guest = {}, children }) {
       <FormField type="hidden" name="guestId" defaultValue={guest?.id} />
       <Button
         type="submit"
-        className="self-end  !py-3 !px-4 flex items-center gap-2"
+        size="small"
+        className="self-end flex items-center gap-2"
         disabled={isPending}
       >
         {isPending && <PiSpinnerBold className="animate-spin text-xl" />}
