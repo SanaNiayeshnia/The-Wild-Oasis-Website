@@ -15,11 +15,11 @@ export const FilterBox = ({ items, filterName = "" }) => {
   }
 
   return (
-    <ul className="flex items-center border-primary-800 rounded-sm  border-2 w-max">
+    <ul className="flex  border-primary-800 rounded-sm  border-2 w-max">
       {items?.map((item, index) => (
         <li
           key={index}
-          className={`py-2 px-2.5  transition-all duration-300 cursor-pointer ${
+          className={`py-2 px-2.5 grid place-items-center text-center transition-all duration-300 cursor-pointer ${
             activeFilter === item?.value
               ? "bg-primary-800"
               : "hover:text-primary-300"

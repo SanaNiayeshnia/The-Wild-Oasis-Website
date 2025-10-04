@@ -41,7 +41,7 @@ function ReservationCard({ booking = {}, isLoading = false }) {
 
       <div className=" flex flex-col flex-grow gap-2 justify-between py-2 px-3 xl:min-w-[550px] ">
         <div className="space-y-1.5">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between gap-2 items-center">
             {isLoading ? (
               <>
                 <Skeleton className="w-48 h-7 rounded-sm" />
@@ -79,7 +79,7 @@ function ReservationCard({ booking = {}, isLoading = false }) {
           )}
         </div>
 
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between gap-2 items-center">
           {isLoading ? (
             <>
               <Skeleton className="h-6 w-40 rounded-sm" />

@@ -11,7 +11,7 @@ async function CabinCard({ cabin = {}, isLoading = false }) {
 
   return (
     <div className="border-2 border-primary-800 rounded flex">
-      <div className="w-30 border-r-2 relative min-h-[146px] border-primary-800 overflow-hidden">
+      <div className="w-30 shrink-0 border-r-2 relative min-h-[175px] md:min-h-[146px] border-primary-800 overflow-hidden">
         {isLoading ? (
           <Skeleton className="w-full h-full" />
         ) : (
@@ -24,14 +24,14 @@ async function CabinCard({ cabin = {}, isLoading = false }) {
         )}
       </div>
       <div className="flex-grow flex flex-col">
-        <div className="py-3 px-4 flex flex-col gap-1 flex-grow">
+        <div className="py-3 px-4 flex flex-col justify-between gap-1 flex-grow">
           {isLoading ? (
             <>
               <Skeleton className="rounded-sm w-28 h-5" />
               <Skeleton className="rounded-sm w-40 h-5" />
             </>
           ) : (
-            <>
+            <div className="flex flex-col gap-1">
               <h4 className="text-accent-200 text-xl font-semibold">
                 Cabin {cabin?.name}
               </h4>
@@ -40,11 +40,11 @@ async function CabinCard({ cabin = {}, isLoading = false }) {
                 For up to{" "}
                 <span className="text-white">{cabin?.maxCapacity}</span> guests
               </p>
-            </>
+            </div>
           )}
 
           {!isLoading && (
-            <div className="flex items-center gap-2 self-end">
+            <div className="flex items-center flex-wrap gap-2 self-end">
               {cabin?.discount > 0 && (
                 <span className="flex items-center gap-1 text-sm text-accent-400">
                   <HiStar />
