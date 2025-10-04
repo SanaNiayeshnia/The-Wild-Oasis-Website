@@ -1,6 +1,8 @@
 import { getUsersReservations } from "@/app/_lib/data_services";
 import ReservationCard from "./ReservationCard";
-import Link from "next/link";
+import EmptyMessage from "../EmptyMessage";
+import { TbBuildingCottage } from "react-icons/tb";
+import Button from "../Button";
 
 export const revalidate = 3600;
 
@@ -16,15 +18,16 @@ async function ReservationList({ isLoading = false }) {
       }`}
     >
       {!isLoading && bookings?.length === 0 ? (
-        <div className="grid place-items-center h-[75vh] place-content-center">
-          <p> You haven't made any reservation yet. </p>
-
-          <Link
-            href="/cabins"
-            className="text-accent-400 transition-all duration-300 hover:text-accent-500 text-lg font-bold"
+        <div className="grid place-items-center  h-[75vh] place-content-center">
+          <EmptyMessage
+            title="No Reservation Found"
+            description="Start with choosing a cabin."
+            iconComponent={<TbBuildingCottage />}
           >
-            Click to start with choosing a cabin
-          </Link>
+            <Button href="/cabins" size="small">
+              Explore Cabins
+            </Button>
+          </EmptyMessage>
         </div>
       ) : (
         bookings?.map((booking, index) => (

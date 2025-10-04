@@ -10,10 +10,11 @@ export const generateMetadata = async ({ params }) => {
   return { title: `reservation ${reservationId}` };
 };
 
-async function page({ params }) {
+async function Page({ params }) {
   const { reservationId } = await params;
   const booking = await getReservation(reservationId);
   const session = await auth();
+  console.log(booking);
 
   return (
     <form className="space-y-4" action={updateReservation}>
@@ -22,7 +23,7 @@ async function page({ params }) {
         <Link href="/account/reservations">
           <TbArrowBackUp className="hover:text-white text-primary-500 transition-all duration-300 cursor-pointer text-3xl" />
         </Link>
-        Edit Reservation #{reservationId}
+        Edit Reservation #{reservationId} for Cabin {booking?.cabins?.name}
       </h1>
       <CheckInDetails
         reservation={booking}
@@ -33,4 +34,4 @@ async function page({ params }) {
   );
 }
 
-export default page;
+export default Page;

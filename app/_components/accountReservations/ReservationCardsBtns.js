@@ -4,13 +4,13 @@ import Link from "next/link";
 import { useTransition } from "react";
 import { PiSpinnerBold } from "react-icons/pi";
 import { RiDeleteBin5Fill, RiEdit2Fill } from "react-icons/ri";
+import ConfirmationAlert from "../ConfirmationAlert";
 
 function ReservationCardsBtns({ bookingId = undefined }) {
   const [isPendingDelete, startDeleteTransition] = useTransition();
 
   function handleDeleteBooking() {
-    if (confirm("Are you sure you want to delete this booking?"))
-      startDeleteTransition(() => deleteReservation(bookingId));
+    startDeleteTransition(() => deleteReservation(bookingId));
   }
 
   const btnClasses = `py-2 px-3 flex-grow flex shrink-0 items-center justify-center  hover:bg-primary-900 transition-all duration-300 group gap-2`;
@@ -24,18 +24,26 @@ function ReservationCardsBtns({ bookingId = undefined }) {
         <RiEdit2Fill className="group-hover:rotate-[360deg] transition-all duration-300" />
         Edit
       </Link>
-      <button
-        className={`${btnClasses} ${!isPendingDelete ? "cursor-pointer" : ""}`}
+      <ConfirmationAlert
+        title={`Delete Reservation #${bookingId}`}
+        description="This action cannot be undone. This will permanently delete your
+            reservation."
         onClick={handleDeleteBooking}
-        disabled={isPendingDelete}
       >
-        {isPendingDelete ? (
-          <PiSpinnerBold className="animate-spin text-xl" />
-        ) : (
-          <RiDeleteBin5Fill className="group-hover:rotate-[360deg] transition-all duration-300" />
-        )}
-        Delete
-      </button>
+        <button
+          className={`${btnClasses} ${
+            !isPendingDelete ? "cursor-pointer" : ""
+          }`}
+          disabled={isPendingDelete}
+        >
+          {isPendingDelete ? (
+            <PiSpinnerBold className="animate-spin text-xl" />
+          ) : (
+            <RiDeleteBin5Fill className="group-hover:rotate-[360deg] transition-all duration-300" />
+          )}
+          Delete
+        </button>
+      </ConfirmationAlert>
     </div>
   );
 }

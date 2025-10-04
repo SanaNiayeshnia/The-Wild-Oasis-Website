@@ -58,7 +58,7 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
           </div>
         </>
       ) : (
-        <div className="grid place-items-center h-full">
+        <div className="grid place-items-center min-h-40 h-full">
           <p className="text-justify">
             Please{" "}
             <Link href="/login" className="text-accent-400 underline">

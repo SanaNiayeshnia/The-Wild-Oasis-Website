@@ -73,7 +73,7 @@ async function CabinCard({ cabin = {}, isLoading = false }) {
               href={`cabins/${cabin?.id}`}
               className="border-l-2 border-primary-800 p-2 text-sm flex items-center gap-1 hover:bg-primary-900 transition-all duration-300 hover:gap-3"
             >
-              Details &reservation
+              Details & reservation
               <HiOutlineArrowNarrowRight className="text-primary-500" />
             </Link>
           )}

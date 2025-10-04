@@ -1,6 +1,6 @@
 import Button from "@/app/_components/Button";
 
-function notFound() {
+function NotFound() {
   return (
     <div className="grid place-items-center place-content-center h-[70vh]  gap-4 flex-grow">
       <h2 className="text-8xl font-semibold text-accent-500">404</h2>
@@ -10,4 +10,4 @@ function notFound() {
   );
 }
 
-export default notFound;
+export default NotFound;
