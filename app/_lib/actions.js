@@ -56,7 +56,7 @@ export async function updateReservation(formData) {
   revalidatePath(`/account/reservations/${formData.get("id")}`);
 }
 
-export async function createBooking({ bookingId, ...bookingData }, formData) {
+export async function createBooking(bookingData, formData) {
   const settings = await getSettings();
   const extrasPrice = formData.get("hasBreakfast")
     ? settings?.breakfastPrice * bookingData?.numNights
@@ -74,10 +74,9 @@ export async function createBooking({ bookingId, ...bookingData }, formData) {
   const { data, error } = await supabase
     .from("bookings")
     .insert([booking])
-    .select()
-    .single();
+    .select();
   if (error)
     throw new Error("Failed to create the new booking!" + error?.message);
   revalidatePath("/account/reservations");
-  return { bookingId: data?.id };
+  redirect("/cabins/reservation-success");
 }

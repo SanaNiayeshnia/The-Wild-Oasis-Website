@@ -6,15 +6,13 @@ import useReservationContext from "@/app/_contexts/reservationContext/useReserva
 import { createBooking } from "@/app/_lib/actions";
 import { differenceInCalendarDays, isSameDay } from "date-fns";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useActionState, useEffect } from "react";
+import { useActionState } from "react";
 import { PiSpinnerBold } from "react-icons/pi";
 
 function CheckInDetails({ reservation, cabin = {}, user = null }) {
   const isEditSession = Boolean(reservation?.id);
   const { maxCapacity } = cabin;
   const { bookingRange, setBookingRange } = useReservationContext();
-  const router = useRouter();
 
   const bookingNumNights =
     isSameDay(bookingRange?.[0], bookingRange?.[1]) ||
@@ -23,22 +21,20 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
       : differenceInCalendarDays(bookingRange?.[1], bookingRange?.[0]) || 0;
   const priceWithDiscount = cabin?.regularPrice - cabin?.discount;
 
-  const [state, action, isPending] = useActionState(createBooking, {
-    cabinId: cabin?.id,
-    guestId: user?.guestId,
-    startDate: new Date(bookingRange?.[0]),
-    endDate: new Date(bookingRange?.[1]),
-    cabinPrice: priceWithDiscount * bookingNumNights,
-    numNights: bookingNumNights,
-    bookingId: null,
-  });
-
-  useEffect(() => {
-    if (state?.bookingId) {
+  const [state, action, isPending] = useActionState(
+    async (prevState, formData) => {
       setBookingRange([]);
-      router.replace("/cabins/reservation-success");
+      await createBooking(prevState, formData);
+    },
+    {
+      cabinId: cabin?.id,
+      guestId: user?.guestId,
+      startDate: new Date(bookingRange?.[0]),
+      endDate: new Date(bookingRange?.[1]),
+      cabinPrice: priceWithDiscount * bookingNumNights,
+      numNights: bookingNumNights,
     }
-  }, [setBookingRange, state, router]);
+  );
 
   return (
     <form action={action} className="flex flex-col flex-grow bg-primary-900">
