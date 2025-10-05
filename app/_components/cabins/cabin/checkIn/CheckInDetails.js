@@ -42,7 +42,8 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
         <>
           {" "}
           <p className="bg-primary-800 py-2 px-4 sm:px-6 lg:px-10 w-full text-primary-200">
-            {isEditSession ? "Reserved by" : "Logged in as"} {user?.name}
+            {isEditSession ? "Reserved by" : "Logged in as"}{" "}
+            <span className="text-accent-200">{user?.name}</span>
           </p>
           <div className="flex flex-col gap-3 py-5 px-4 sm:px-6 lg:px-10">
             <SelectBox
@@ -86,7 +87,7 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
               <Button
                 size="small"
                 type="submit"
-                disabled={bookingRange?.length === 0}
+                disabled={!isEditSession && bookingRange?.length === 0}
               >
                 {isPending && (
                   <PiSpinnerBold className="animate-spin text-xl" />
