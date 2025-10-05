@@ -3,7 +3,7 @@ import FormField from "@/app/_components/accountProfile/FormField";
 import { SelectBox } from "@/app/_components/accountProfile/SelectBox";
 import Button from "@/app/_components/Button";
 import useReservationContext from "@/app/_contexts/reservationContext/useReservationContext";
-import { createBooking } from "@/app/_lib/actions";
+import { createBooking, updateReservation } from "@/app/_lib/actions";
 import { differenceInCalendarDays, isSameDay } from "date-fns";
 import Link from "next/link";
 import { useActionState } from "react";
@@ -24,7 +24,8 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
   const [state, action, isPending] = useActionState(
     async (prevState, formData) => {
       setBookingRange([]);
-      await createBooking(prevState, formData);
+      if (isEditSession) await updateReservation(prevState, formData);
+      else await createBooking(prevState, formData);
     },
     {
       cabinId: cabin?.id,
@@ -33,6 +34,7 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
       endDate: new Date(bookingRange?.[1]),
       cabinPrice: priceWithDiscount * bookingNumNights,
       numNights: bookingNumNights,
+      bookingId: isEditSession ? reservation?.id : null,
     }
   );
 

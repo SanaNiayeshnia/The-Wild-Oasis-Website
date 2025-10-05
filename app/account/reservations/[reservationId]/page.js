@@ -1,5 +1,4 @@
 import CheckInDetails from "@/app/_components/cabins/cabin/checkIn/CheckInDetails";
-import { updateReservation } from "@/app/_lib/actions";
 import { auth } from "@/app/_lib/auth";
 import { getReservation } from "@/app/_lib/data_services";
 import Link from "next/link";
@@ -16,7 +15,7 @@ async function Page({ params }) {
   const session = await auth();
 
   return (
-    <form className="space-y-4" action={updateReservation}>
+    <div className="space-y-4">
       <input type="hidden" name="id" defaultValue={reservationId} />
       <h1 className="text-accent-400 text-2xl flex items-center gap-2 font-semibold">
         <Link href="/account/reservations">
@@ -35,7 +34,7 @@ async function Page({ params }) {
         cabin={booking?.cabins}
         user={session?.user}
       />
-    </form>
+    </div>
   );
 }
 
