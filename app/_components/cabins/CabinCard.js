@@ -5,8 +5,9 @@ import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { Skeleton } from "../ui/skeleton";
 
 async function CabinCard({ cabin = {}, isLoading = false }) {
-  const priceWithDiscount = Math?.floor(
-    (cabin?.regularPrice * (100 - cabin?.discount)) / 100
+  const priceWithDiscount = cabin?.regularPrice - cabin?.discount;
+  const discountPercent = Math.floor(
+    (cabin?.discount / cabin?.regularPrice) * 100
   );
 
   return (
@@ -49,7 +50,7 @@ async function CabinCard({ cabin = {}, isLoading = false }) {
                 <span className="flex items-center gap-1 text-sm text-accent-400">
                   <HiStar />
                   <span className="line-through">${cabin?.regularPrice}</span> (
-                  {cabin?.discount}% off)
+                  {discountPercent}% off)
                 </span>
               )}
               <p className="flex gap-1 items-center text-sm">

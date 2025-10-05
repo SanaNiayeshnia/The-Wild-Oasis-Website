@@ -6,8 +6,9 @@ import { TextExpander } from "../../TextExpander";
 function CabinDetails({ cabin = {} }) {
   const { image, name, description, maxCapacity, discount, regularPrice } =
     cabin;
-  const priceWithDiscount = Math?.floor(
-    (cabin?.regularPrice * (100 - cabin?.discount)) / 100
+  const priceWithDiscount = cabin?.regularPrice - cabin?.discount;
+  const discountPercent = Math.floor(
+    (cabin?.discount / cabin?.regularPrice) * 100
   );
 
   return (
@@ -51,7 +52,7 @@ function CabinDetails({ cabin = {} }) {
               <span className="flex items-center gap-1 text-accent-400">
                 <HiStar className="text-lg" />
                 <span className="line-through">${regularPrice}</span> (
-                {discount}% off)
+                {discountPercent}% off)
               </span>
             )}
           </div>

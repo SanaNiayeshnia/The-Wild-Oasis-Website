@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import supabase from "./supabase";
 import { auth } from "./auth";
+import { eachDayOfInterval } from "date-fns";
 
 export async function getCabins() {
   const { data: cabins, error } = await supabase
@@ -53,13 +54,10 @@ export async function getBookedDatesByCabinId(cabinId) {
   today.setUTCHours(0, 0, 0, 0);
   today = today.toISOString();
 
-  // Getting all bookings
   const { data, error } = await supabase
     .from("bookings")
     .select("*")
-    .eq("cabinId", cabinId)
-    .or(`startDate.gte.${today},status.eq.checked-in`);
-
+    .eq("cabinId", cabinId);
   if (error) {
     console.error(error);
     throw new Error("Bookings could not get loaded");
