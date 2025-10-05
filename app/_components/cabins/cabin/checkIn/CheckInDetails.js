@@ -3,18 +3,34 @@ import FormField from "@/app/_components/accountProfile/FormField";
 import { SelectBox } from "@/app/_components/accountProfile/SelectBox";
 import Button from "@/app/_components/Button";
 import useReservationContext from "@/app/_contexts/reservationContext/useReservationContext";
+import { createBooking } from "@/app/_lib/actions";
+import { differenceInCalendarDays, isSameDay } from "date-fns";
 import Link from "next/link";
-import { useFormStatus } from "react-dom";
+import { useActionState } from "react";
 import { PiSpinnerBold } from "react-icons/pi";
 
 function CheckInDetails({ reservation, cabin = {}, user = null }) {
   const isEditSession = Boolean(reservation?.id);
   const { maxCapacity } = cabin;
-  const { pending } = useFormStatus();
   const { bookingRange } = useReservationContext();
+  const bookingNumNights =
+    isSameDay(bookingRange?.[0], bookingRange?.[1]) ||
+    bookingRange?.length === 1
+      ? 1
+      : differenceInCalendarDays(bookingRange?.[1], bookingRange?.[0]) || 0;
+  const priceWithDiscount = cabin?.regularPrice - cabin?.discount;
+
+  const [state, action, isPending] = useActionState(createBooking, {
+    cabinId: cabin?.id,
+    guestId: user?.guestId,
+    startDate: new Date(bookingRange?.[0]),
+    endDate: new Date(bookingRange?.[1]),
+    cabinPrice: priceWithDiscount * bookingNumNights,
+    numNights: bookingNumNights,
+  });
 
   return (
-    <div className="flex flex-col flex-grow bg-primary-900">
+    <form action={action} className="flex flex-col flex-grow bg-primary-900">
       {user ? (
         <>
           {" "}
@@ -46,19 +62,35 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
               defaultValue={reservation?.observation}
               name="observation"
             />
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                name="hasBreakfast"
+                id="hasBreakfast"
+                className="accent-accent-500 w-4 h-4"
+              />
+              <label htmlFor="hasBreakfast">Include breakfast</label>
+            </div>
+
             <div className="mt-3 self-end flex items-center gap-4">
               {!isEditSession && bookingRange?.length === 0 && (
                 <p>Start by picking dates</p>
               )}
-              <Button size="small" type="submit">
-                {pending && <PiSpinnerBold className="animate-spin text-xl" />}
+              <Button
+                size="small"
+                type="submit"
+                disabled={bookingRange?.length === 0}
+              >
+                {isPending && (
+                  <PiSpinnerBold className="animate-spin text-xl" />
+                )}
                 {isEditSession ? "Update" : "Reserve now"}
               </Button>
             </div>
           </div>
         </>
       ) : (
-        <div className="grid place-items-center min-h-40 h-full">
+        <div className="grid  place-items-center min-h-40 h-full">
           <p className="text-justify">
             Please{" "}
             <Link href="/login" className="text-accent-400 underline">
@@ -68,7 +100,7 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
           </p>
         </div>
       )}
-    </div>
+    </form>
   );
 }
 

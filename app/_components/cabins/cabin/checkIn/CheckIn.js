@@ -1,23 +1,22 @@
+"use client";
 import { HiX } from "react-icons/hi";
 import CheckInDetails from "./CheckInDetails";
 import CustomDatePicker from "./customDatePicker/CustomDatePicker";
-import { getBookedDatesByCabinId, getSettings } from "@/app/_lib/data_services";
-import { auth } from "@/app/_lib/auth";
+import useReservationContext from "@/app/_contexts/reservationContext/useReservationContext";
+import { differenceInCalendarDays, isSameDay } from "date-fns";
 
-async function CheckIn({ cabin = {} }) {
-  const [session, settings, bookedDates] = await Promise.all([
-    auth(),
-    getSettings(),
-    getBookedDatesByCabinId(cabin?.id),
-  ]);
-
+function CheckIn({ cabin = {}, settings = {}, bookedDates = [], user = {} }) {
   const { minBookingLength, maxBookingLength, maxGuestsPerBooking } = settings;
-  console.log(minBookingLength, maxBookingLength);
-
   const priceWithDiscount = cabin.regularPrice - cabin?.discount;
+  const { bookingRange } = useReservationContext();
+  const bookingNumNights =
+    isSameDay(bookingRange?.[0], bookingRange?.[1]) ||
+    bookingRange?.length === 1
+      ? 1
+      : differenceInCalendarDays(bookingRange?.[1], bookingRange?.[0]) || 0;
 
   return (
-    <form className="flex flex-col md:flex-row min-h-80 border-2 border-primary-800 w-full">
+    <div className="flex flex-col md:flex-row min-h-80 border-2 border-primary-800 w-full">
       <div className="flex flex-col md:w-1/2 justify-between">
         <CustomDatePicker
           minRangeLength={minBookingLength}
@@ -30,25 +29,27 @@ async function CheckIn({ cabin = {} }) {
           <div className="flex items-center gap-4">
             <p className="flex items-end gap-2">
               <span className="text-xl font-semibold">
-                ${priceWithDiscount}
+                ${priceWithDiscount?.toLocaleString()}
               </span>
-              <span className="line-through">${cabin?.regularPrice}</span>
+              <span className="line-through">
+                ${cabin?.regularPrice?.toLocaleString()}
+              </span>
               <span>/night</span>
             </p>
 
             <p p className="bg-accent-600 flex items-center p-1.5">
-              <HiX className="text-sm" /> 23
+              <HiX className="text-sm" /> {bookingNumNights}
             </p>
           </div>
 
           <p className="font-semibold text-xl">
-            Total ${(priceWithDiscount * 23).toLocaleString()}
+            Total ${(priceWithDiscount * bookingNumNights).toLocaleString()}
           </p>
         </div>
       </div>
 
-      <CheckInDetails cabin={cabin} user={session?.user} />
-    </form>
+      <CheckInDetails cabin={cabin} user={user} />
+    </div>
   );
 }
 

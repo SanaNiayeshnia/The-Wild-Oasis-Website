@@ -1,9 +1,15 @@
-import { getCabin, getCabins } from "@/app/_lib/data_services";
+import {
+  getBookedDatesByCabinId,
+  getCabin,
+  getCabins,
+  getSettings,
+} from "@/app/_lib/data_services";
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi2";
 import { Suspense } from "react";
 import Loader from "@/app/_components/Loader";
 import CabinDetails from "@/app/_components/cabins/cabin/CabinDetails";
 import CheckIn from "@/app/_components/cabins/cabin/checkIn/CheckIn";
+import { auth } from "@/app/_lib/auth";
 
 export async function generateMetadata({ params }) {
   const { cabinId } = await params;
@@ -13,22 +19,14 @@ export async function generateMetadata({ params }) {
   };
 }
 
-// export async function generateStaticParams() {
-//   try {
-//     const cabins = await getCabins();
-//     const staticParams = cabins?.map((cabin) => ({
-//       cabinId: String(cabin?.id),
-//     }));
-//     return staticParams;
-//   } catch (err) {
-//     console.error("Error in generateStaticParams:", err);
-//     return [];
-//   }
-// }
-
 async function Page({ params }) {
   const { cabinId } = await params;
   const cabin = await getCabin(cabinId);
+  const [session, settings, bookedDates] = await Promise.all([
+    auth(),
+    getSettings(),
+    getBookedDatesByCabinId(cabin?.id),
+  ]);
 
   return (
     <div className="mt-4 mb-10 grid place-items-center">
@@ -41,9 +39,12 @@ async function Page({ params }) {
         </div>
         <HiChevronDoubleRight />
       </p>
-      <Suspense fallback={<Loader />}>
-        <CheckIn cabin={cabin} />
-      </Suspense>
+      <CheckIn
+        cabin={cabin}
+        user={session?.user}
+        settings={settings}
+        bookedDates={bookedDates}
+      />
     </div>
   );
 }

@@ -50,12 +50,12 @@ async function CabinCard({ cabin = {}, isLoading = false }) {
                 <span className="flex items-center gap-1 text-sm text-accent-400">
                   <HiStar />
                   <span className="line-through">${cabin?.regularPrice}</span> (
-                  {discountPercent}% off)
+                  {discountPercent?.toLocaleString()}% off)
                 </span>
               )}
               <p className="flex gap-1 items-center text-sm">
                 <span className="text-xl text-white">
-                  ${priceWithDiscount || 0}
+                  ${priceWithDiscount?.toLocaleString() || 0}
                 </span>
                 / night
               </p>

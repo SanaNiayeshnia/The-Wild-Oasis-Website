@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { auth, signIn, signOut } from "./auth";
 import supabase from "./supabase";
+import { getSettings } from "./data_services";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" });
@@ -44,6 +45,7 @@ export async function updateReservation(formData) {
     .update({
       numGuests: formData.get("numGuests"),
       observation: formData.get("observation"),
+      hasBreakfast: formData.get("hasBreakfast") === "on",
     })
     .eq("id", formData.get("id"))
     .select();
@@ -51,4 +53,31 @@ export async function updateReservation(formData) {
   if (error) throw new Error(error.message);
   revalidatePath("/account/reservations");
   revalidatePath(`/account/reservations/${formData.get("id")}`);
+}
+
+export async function createBooking(bookingData, formData) {
+  const settings = await getSettings();
+  const extrasPrice = formData.get("hasBreakfast")
+    ? settings?.breakfastPrice * bookingData?.numNights
+    : 0;
+  const booking = {
+    ...bookingData,
+    numGuests: Number(formData.get("numGuests")),
+    hasBreakfast: formData.get("hasBreakfast") === "on",
+    observation: formData.get("observation"),
+    status: "unconfirmed",
+    isPaid: false,
+    extrasPrice,
+    totalPrice: bookingData?.cabinPrice + extrasPrice,
+  };
+
+  console.log(booking);
+  const { data, error } = await supabase
+    .from("bookings")
+    .insert([booking])
+    .select();
+  if (error)
+    throw new Error("Failed to create the new booking!" + error?.message);
+  revalidatePath("/account/reservations");
+  return data;
 }

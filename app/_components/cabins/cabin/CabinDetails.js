@@ -44,15 +44,17 @@ function CabinDetails({ cabin = {} }) {
           <div className="flex flex-col self-end sm:self-auto">
             <p className="flex gap-2 items-end">
               <span className="text-3xl md:text-5xl text-white">
-                ${priceWithDiscount}
+                ${priceWithDiscount?.toLocaleString()}
               </span>
               / night
             </p>
             {discount > 0 && (
               <span className="flex items-center gap-1 text-accent-400">
                 <HiStar className="text-lg" />
-                <span className="line-through">${regularPrice}</span> (
-                {discountPercent}% off)
+                <span className="line-through">
+                  ${regularPrice?.toLocaleString()}
+                </span>{" "}
+                ({discountPercent}% off)
               </span>
             )}
           </div>
