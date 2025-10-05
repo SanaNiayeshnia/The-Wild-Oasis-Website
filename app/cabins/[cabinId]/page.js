@@ -1,12 +1,9 @@
 import {
   getBookedDatesByCabinId,
   getCabin,
-  getCabins,
   getSettings,
 } from "@/app/_lib/data_services";
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi2";
-import { Suspense } from "react";
-import Loader from "@/app/_components/Loader";
 import CabinDetails from "@/app/_components/cabins/cabin/CabinDetails";
 import CheckIn from "@/app/_components/cabins/cabin/checkIn/CheckIn";
 import { auth } from "@/app/_lib/auth";

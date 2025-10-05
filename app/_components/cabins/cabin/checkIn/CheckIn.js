@@ -31,9 +31,11 @@ function CheckIn({ cabin = {}, settings = {}, bookedDates = [], user = {} }) {
               <span className="text-xl font-semibold">
                 ${priceWithDiscount?.toLocaleString()}
               </span>
-              <span className="line-through">
-                ${cabin?.regularPrice?.toLocaleString()}
-              </span>
+              {cabin?.discount > 0 && (
+                <span className="line-through">
+                  ${cabin?.regularPrice?.toLocaleString()}
+                </span>
+              )}
               <span>/night</span>
             </p>
 

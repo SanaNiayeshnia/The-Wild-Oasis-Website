@@ -6,13 +6,16 @@ import useReservationContext from "@/app/_contexts/reservationContext/useReserva
 import { createBooking } from "@/app/_lib/actions";
 import { differenceInCalendarDays, isSameDay } from "date-fns";
 import Link from "next/link";
-import { useActionState } from "react";
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect } from "react";
 import { PiSpinnerBold } from "react-icons/pi";
 
 function CheckInDetails({ reservation, cabin = {}, user = null }) {
   const isEditSession = Boolean(reservation?.id);
   const { maxCapacity } = cabin;
-  const { bookingRange } = useReservationContext();
+  const { bookingRange, setBookingRange } = useReservationContext();
+  const router = useRouter();
+
   const bookingNumNights =
     isSameDay(bookingRange?.[0], bookingRange?.[1]) ||
     bookingRange?.length === 1
@@ -27,7 +30,15 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
     endDate: new Date(bookingRange?.[1]),
     cabinPrice: priceWithDiscount * bookingNumNights,
     numNights: bookingNumNights,
+    bookingId: null,
   });
+
+  useEffect(() => {
+    if (state?.bookingId) {
+      setBookingRange([]);
+      router.replace("/cabins/reservation-success");
+    }
+  }, [setBookingRange, state, router]);
 
   return (
     <form action={action} className="flex flex-col flex-grow bg-primary-900">
@@ -67,7 +78,7 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
                 type="checkbox"
                 name="hasBreakfast"
                 id="hasBreakfast"
-                className="accent-accent-500 w-4 h-4"
+                className="accent-accent-500  border-none w-4 h-4"
               />
               <label htmlFor="hasBreakfast">Include breakfast</label>
             </div>
