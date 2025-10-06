@@ -14,11 +14,14 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
   const { maxCapacity } = cabin;
   const { bookingRange, setBookingRange } = useReservationContext();
 
-  const bookingNumNights =
-    isSameDay(bookingRange?.[0], bookingRange?.[1]) ||
-    bookingRange?.length === 1
-      ? 1
-      : differenceInCalendarDays(bookingRange?.[1], bookingRange?.[0]) || 0;
+  const bookingNumNights = isEditSession
+    ? differenceInCalendarDays(reservation?.endDate, reservation?.startDate) ||
+      1
+    : isSameDay(bookingRange?.[0], bookingRange?.[1]) ||
+      bookingRange?.length === 1
+    ? 1
+    : differenceInCalendarDays(bookingRange?.[1], bookingRange?.[0]);
+
   const priceWithDiscount = cabin?.regularPrice - cabin?.discount;
 
   const [state, action, isPending] = useActionState(
@@ -34,7 +37,6 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
       endDate: new Date(bookingRange?.[1]),
       cabinPrice: priceWithDiscount * bookingNumNights,
       numNights: bookingNumNights,
-      bookingId: isEditSession ? reservation?.id : null,
     }
   );
 
@@ -77,10 +79,14 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
                 type="checkbox"
                 name="hasBreakfast"
                 id="hasBreakfast"
+                defaultChecked={reservation?.hasBreakfast}
                 className="accent-accent-500  border-none w-4 h-4"
               />
               <label htmlFor="hasBreakfast">Include breakfast</label>
             </div>
+            {isEditSession && (
+              <input type="hidden" name="bookingId" value={reservation?.id} />
+            )}
 
             <div className="mt-3 self-end flex items-center gap-4">
               {!isEditSession && bookingRange?.length === 0 && (

@@ -41,15 +41,21 @@ export async function deleteReservation(bookingId) {
 }
 
 export async function updateReservation(bookingData, formData) {
-  console.log(...formData);
+  const settings = await getSettings();
+  const extrasPrice = formData.get("hasBreakfast")
+    ? settings?.breakfastPrice * bookingData?.numNights
+    : 0;
+
   const { error } = await supabase
     .from("bookings")
     .update({
       numGuests: Number(formData.get("numGuests")),
       observation: formData.get("observation"),
-      hasBreakfast: formData.get("hasBreakfast") === "on",
+      hasBreakfast: Boolean(formData.get("hasBreakfast")),
+      extrasPrice,
+      totalPrice: bookingData?.cabinPrice + extrasPrice,
     })
-    .eq("id", bookingData?.bookingId)
+    .eq("id", formData.get("bookingId"))
     .select();
 
   if (error) throw new Error(error.message);
@@ -57,11 +63,12 @@ export async function updateReservation(bookingData, formData) {
   revalidatePath(`/account/reservations/${bookingData?.bookingId}`);
 }
 
-export async function createBooking({ bookingId, ...bookingData }, formData) {
+export async function createBooking(bookingData, formData) {
   const settings = await getSettings();
-  const extrasPrice = formData.get("hasBreakfast")
-    ? settings?.breakfastPrice * bookingData?.numNights
-    : 0;
+  const extrasPrice =
+    formData.get("hasBreakfast") === "on"
+      ? settings?.breakfastPrice * bookingData?.numNights
+      : 0;
   const booking = {
     ...bookingData,
     numGuests: Number(formData.get("numGuests")),
