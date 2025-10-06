@@ -1,7 +1,5 @@
 # The Wild Oasis Website
 
-[![Vercel](https://img.shields.io/badge/deployed-on-vercel-000000?style=flat&logo=vercel&logoColor=white)](https://the-wild-oasis-website-nu-lac.vercel.app/)
-
 The Wild Oasis Website is a modern, full-featured hotel reservation platform that allows users to browse, filter, and book cabins seamlessly. Built with **Next.js**, **Tailwind CSS**, and **Supabase**, it offers a polished user experience with authentication, reservation management, and an admin dashboard.
 
 ---
