@@ -12,7 +12,9 @@ import { PiSpinnerBold } from "react-icons/pi";
 function CheckInDetails({ reservation, cabin = {}, user = null }) {
   const isEditSession = Boolean(reservation?.id);
   const { maxCapacity } = cabin;
-  const { bookingRange, setBookingRange } = useReservationContext();
+  let bookingRange;
+  const reservationContext = useReservationContext();
+  bookingRange = reservationContext?.bookingRange || [];
 
   const bookingNumNights = isEditSession
     ? differenceInCalendarDays(reservation?.endDate, reservation?.startDate) ||
@@ -20,31 +22,37 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
     : isSameDay(bookingRange?.[0], bookingRange?.[1]) ||
       bookingRange?.length === 1
     ? 1
-    : differenceInCalendarDays(bookingRange?.[1], bookingRange?.[0]);
+    : differenceInCalendarDays(bookingRange?.[1], bookingRange?.[0]) || 0;
 
   const priceWithDiscount = cabin?.regularPrice - cabin?.discount;
 
-  const [state, action, isPending] = useActionState(
-    async (prevState, formData) => {
-      setBookingRange([]);
-      if (isEditSession) await updateReservation(prevState, formData);
-      else await createBooking(prevState, formData);
-    },
-    {
-      cabinId: cabin?.id,
-      guestId: user?.guestId,
-      startDate: new Date(bookingRange?.[0]),
-      endDate: new Date(bookingRange?.[1]),
+  const actionFn = async (prevState, formData) => {
+    const formattedData = {
+      ...Object.fromEntries(formData),
+      ...(!isEditSession
+        ? {
+            cabinId: cabin?.id,
+            guestId: user?.guestId,
+            startDate: new Date(bookingRange?.[0]),
+            endDate: new Date(bookingRange?.[1]),
+          }
+        : {}),
       cabinPrice: priceWithDiscount * bookingNumNights,
       numNights: bookingNumNights,
+    };
+    if (isEditSession) {
+      return await updateReservation(formattedData);
+    } else {
+      return await createBooking(formattedData);
     }
-  );
+  };
+
+  const [state, action, isPending] = useActionState(actionFn);
 
   return (
     <form action={action} className="flex flex-col flex-grow bg-primary-900">
       {user ? (
         <>
-          {" "}
           <p className="bg-primary-800 py-2 px-4 sm:px-6 lg:px-10 w-full text-primary-200">
             {isEditSession ? "Reserved by" : "Logged in as"}{" "}
             <span className="text-accent-200">{user?.name}</span>

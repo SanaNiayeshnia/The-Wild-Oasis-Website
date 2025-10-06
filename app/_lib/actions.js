@@ -40,51 +40,53 @@ export async function deleteReservation(bookingId) {
   revalidatePath("/account/reservations");
 }
 
-export async function updateReservation(bookingData, formData) {
+export async function updateReservation({ bookingId, ...data }) {
+  console.log(data);
   const settings = await getSettings();
-  const extrasPrice = formData.get("hasBreakfast")
-    ? settings?.breakfastPrice * bookingData?.numNights
+  const extrasPrice = data.hasBreakfast
+    ? settings?.breakfastPrice * data?.numNights
     : 0;
 
   const { error } = await supabase
     .from("bookings")
     .update({
-      numGuests: Number(formData.get("numGuests")),
-      observation: formData.get("observation"),
-      hasBreakfast: Boolean(formData.get("hasBreakfast")),
+      ...data,
+      numGuests: Number(data.numGuests),
+      hasBreakfast: Boolean(data.hasBreakfast),
       extrasPrice,
-      totalPrice: bookingData?.cabinPrice + extrasPrice,
+      totalPrice: data?.cabinPrice + extrasPrice,
     })
-    .eq("id", formData.get("bookingId"))
+    .eq("id", bookingId)
     .select();
 
   if (error) throw new Error(error.message);
   revalidatePath("/account/reservations");
-  revalidatePath(`/account/reservations/${bookingData?.bookingId}`);
+  revalidatePath(`/account/reservations/${bookingId}`);
 }
 
-export async function createBooking(bookingData, formData) {
+export async function createBooking(data) {
   const settings = await getSettings();
-  const extrasPrice =
-    formData.get("hasBreakfast") === "on"
-      ? settings?.breakfastPrice * bookingData?.numNights
-      : 0;
-  const booking = {
-    ...bookingData,
-    numGuests: Number(formData.get("numGuests")),
-    hasBreakfast: formData.get("hasBreakfast") === "on",
-    observation: formData.get("observation"),
-    status: "unconfirmed",
-    isPaid: false,
-    extrasPrice,
-    totalPrice: bookingData?.cabinPrice + extrasPrice,
-  };
-  const { data, error } = await supabase
+  const extrasPrice = data?.hasBreakfast
+    ? settings?.breakfastPrice * data?.numNights
+    : 0;
+
+  const { data: booking, error } = await supabase
     .from("bookings")
-    .insert([booking])
-    .select();
+    .insert([
+      {
+        ...data,
+        numGuests: Number(data?.numGuests),
+        hasBreakfast: data?.hasBreakfast === "on",
+        status: "unconfirmed",
+        isPaid: false,
+        extrasPrice,
+        totalPrice: data?.cabinPrice + extrasPrice,
+      },
+    ])
+    .select()
+    .single();
   if (error)
     throw new Error("Failed to create the new booking!" + error?.message);
   revalidatePath("/account/reservations");
-  redirect("/cabins/reservation-success");
+  redirect(`/cabins/reservation-success?reservationId=${booking?.id}`);
 }

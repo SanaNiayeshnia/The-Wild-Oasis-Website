@@ -1,4 +1,5 @@
 import Button from "@/app/_components/Button";
+import MakeBookingRangeEmpty from "@/app/_components/cabins/cabin/checkIn/makeBookingRangeEmpty";
 import EmptyMessage from "@/app/_components/EmptyMessage";
 import { getReservation } from "@/app/_lib/data_services";
 import { formatBookingRange } from "@/app/_lib/functions";
@@ -10,6 +11,7 @@ export default async function Page({ searchParams }) {
 
   return (
     <div className="grid place-items-center -mt-16 flex-grow">
+      <MakeBookingRangeEmpty />
       <EmptyMessage
         iconComponent={<BsFillCalendarCheckFill />}
         title="Successful Reservation"

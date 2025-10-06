@@ -12,9 +12,9 @@ export function formatBookingRange(bookingRange) {
   const today = new Date();
   const formattedFrom = formatDate(
     from ? new Date(from) : today,
-    "MMMM d, yyyy"
+    "MMMM D, yyyy"
   );
-  const formattedTo = formatDate(to ? new Date(to) : today, "MMMM d, yyyy");
+  const formattedTo = formatDate(to ? new Date(to) : today, "MMMM D, yyyy");
 
   return bookingRange?.length === 1 ||
     isSameDay(bookingRange?.[0], bookingRange?.[1])
