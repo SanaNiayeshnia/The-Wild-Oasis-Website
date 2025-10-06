@@ -24,7 +24,7 @@ function EmptyMessage({
           {iconComponent}
         </EmptyMedia>
         <EmptyTitle className="text-2xl">{title}</EmptyTitle>
-        <EmptyDescription className="text-accent-300">
+        <EmptyDescription className="text-accent-200">
           {description}
         </EmptyDescription>
       </EmptyHeader>
