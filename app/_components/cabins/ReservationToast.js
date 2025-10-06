@@ -1,5 +1,6 @@
 "use client";
 import useReservationContext from "@/app/_contexts/reservationContext/useReservationContext";
+import { formatBookingRange } from "@/app/_lib/functions";
 import { format, isSameDay } from "date-fns";
 import Link from "next/link";
 import { RiCloseCircleFill } from "react-icons/ri";
@@ -7,10 +8,7 @@ import { RiCloseCircleFill } from "react-icons/ri";
 function ReservationToast() {
   const { bookingRange, setBookingRange, bookingCabin } =
     useReservationContext();
-  const [from, to] = bookingRange;
-  const today = new Date();
-  const formattedFrom = format(from ? new Date(from) : today, "MMMM dd, yyyy");
-  const formattedTo = format(to ? new Date(to) : today, "MMMM dd, yyyy");
+
   return bookingRange.length > 0 ? (
     <div className="bg-accent-500 text-stone-800 py-4 px-8 rounded-2xl fixed bottom-5 max-w-90 right-2 md:right-5 shadow-xl">
       <RiCloseCircleFill
@@ -21,11 +19,7 @@ function ReservationToast() {
         href={`/cabins/${bookingCabin}`}
         className="cursor-pointer hover: text-justify transition-all duration-300"
       >
-        Complete your reservation{" "}
-        {bookingRange?.length === 1 ||
-        isSameDay(bookingRange?.[0], bookingRange?.[1])
-          ? `for ${formattedFrom}`
-          : `from ${formattedFrom} to ${formattedTo}`}
+        Complete your reservation {formatBookingRange(bookingRange)}
       </Link>
     </div>
   ) : (
