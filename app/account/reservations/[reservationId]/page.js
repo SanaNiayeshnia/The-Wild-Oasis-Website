@@ -1,3 +1,4 @@
+import UpdateReservation from "@/app/_components/accountReservations/UpdateReservation";
 import CheckInDetails from "@/app/_components/cabins/cabin/checkIn/CheckInDetails";
 import { auth } from "@/app/_lib/auth";
 import { getReservation } from "@/app/_lib/data_services";
@@ -13,7 +14,6 @@ async function Page({ params }) {
   const { reservationId } = await params;
   const booking = await getReservation(reservationId);
   const session = await auth();
-
   return (
     <div className="space-y-4">
       <input type="hidden" name="id" defaultValue={reservationId} />
@@ -29,11 +29,7 @@ async function Page({ params }) {
           Cabin {booking?.cabins?.name}
         </Link>
       </h1>
-      <CheckInDetails
-        reservation={booking}
-        cabin={booking?.cabins}
-        user={session?.user}
-      />
+      <UpdateReservation booking={booking} user={session?.user} />
     </div>
   );
 }

@@ -9,7 +9,13 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { PiSpinnerBold } from "react-icons/pi";
 
-function CheckInDetails({ reservation, cabin = {}, user = null }) {
+function CheckInDetails({
+  reservation,
+  cabin = {},
+  user = null,
+  hasBreakfast = false,
+  setHasBreakfast = () => {},
+}) {
   const isEditSession = Boolean(reservation?.id);
   const { maxCapacity } = cabin;
   let bookingRange;
@@ -39,6 +45,7 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
         : {}),
       cabinPrice: priceWithDiscount * bookingNumNights,
       numNights: bookingNumNights,
+      hasBreakfast,
     };
     if (isEditSession) {
       return await updateReservation(formattedData);
@@ -89,6 +96,9 @@ function CheckInDetails({ reservation, cabin = {}, user = null }) {
                 id="hasBreakfast"
                 defaultChecked={reservation?.hasBreakfast}
                 className="accent-accent-500  border-none w-4 h-4"
+                checked={hasBreakfast}
+                onChange={(e) => setHasBreakfast(e.target.checked)}
+                key={reservation?.hasBreakfast}
               />
               <label htmlFor="hasBreakfast">Include breakfast</label>
             </div>

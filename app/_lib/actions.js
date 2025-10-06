@@ -52,7 +52,7 @@ export async function updateReservation({ bookingId, ...data }) {
     .update({
       ...data,
       numGuests: Number(data.numGuests),
-      hasBreakfast: Boolean(data.hasBreakfast),
+      hasBreakfast: data.hasBreakfast,
       extrasPrice,
       totalPrice: data?.cabinPrice + extrasPrice,
     })
@@ -76,7 +76,7 @@ export async function createBooking(data) {
       {
         ...data,
         numGuests: Number(data?.numGuests),
-        hasBreakfast: data?.hasBreakfast === "on",
+        hasBreakfast: data.hasBreakfast,
         status: "unconfirmed",
         isPaid: false,
         extrasPrice,
