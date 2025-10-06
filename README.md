@@ -6,7 +6,7 @@ The Wild Oasis Website is a modern, full-featured hotel reservation platform tha
 
 ## 🌐 Live Demo
 
-[Visit The Wild Oasis Website](https://the-wild-oasis-website-nu-lac.vercel.app/)  
+[Visit The Wild Oasis Website](https://the-wild-oasis-website-nu-lac.vercel.app/) (Use VPN if you're reaching from Iran.)
 Admin Panel: [The Wild Oasis Admin Panel Repository](https://github.com/SanaNiayeshnia/The-Wild-Oasis-Admin-Panel)
 
 ---
