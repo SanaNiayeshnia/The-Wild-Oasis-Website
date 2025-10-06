@@ -32,8 +32,8 @@ function CheckIn({ cabin = {}, settings = {}, bookedDates = [], user = {} }) {
           key={cabin?.id}
           bookedDates={bookedDates}
         />
-        <div className="flex items-center py-1.5 px-3 justify-between gap-4 bg-accent-500 text-stone-800">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center flex-wrap py-1.5 px-3 justify-between gap-4 bg-accent-500 text-stone-800">
+          <div className="flex items-center gap-2 ">
             <div className="flex items-center gap-2">
               <p className="flex items-end gap-2">
                 <span className="text-xl font-semibold">
