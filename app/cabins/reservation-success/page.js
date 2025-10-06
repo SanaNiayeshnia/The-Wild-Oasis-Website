@@ -5,6 +5,10 @@ import { getReservation } from "@/app/_lib/data_services";
 import { formatBookingRange } from "@/app/_lib/functions";
 import { BsFillCalendarCheckFill } from "react-icons/bs";
 
+export const metadata = {
+  title: "Successful Reservation",
+};
+
 export default async function Page({ searchParams }) {
   const reservationId = await searchParams.reservationId;
   const booking = await getReservation(reservationId);
