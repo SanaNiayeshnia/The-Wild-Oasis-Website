@@ -41,21 +41,9 @@ export async function deleteReservation(bookingId) {
 }
 
 export async function updateReservation({ bookingId, ...data }) {
-  console.log(data);
-  const settings = await getSettings();
-  const extrasPrice = data.hasBreakfast
-    ? settings?.breakfastPrice * data?.numGuests * data?.numNights
-    : 0;
-
   const { error } = await supabase
     .from("bookings")
-    .update({
-      ...data,
-      numGuests: Number(data.numGuests),
-      hasBreakfast: data.hasBreakfast,
-      extrasPrice,
-      totalPrice: data?.cabinPrice + extrasPrice,
-    })
+    .update(data)
     .eq("id", bookingId)
     .select();
 
@@ -65,24 +53,10 @@ export async function updateReservation({ bookingId, ...data }) {
 }
 
 export async function createBooking(data) {
-  const settings = await getSettings();
-  const extrasPrice = data?.hasBreakfast
-    ? settings?.breakfastPrice * data?.numGuests * data?.numNights
-    : 0;
-
+  console.log(data);
   const { data: booking, error } = await supabase
     .from("bookings")
-    .insert([
-      {
-        ...data,
-        numGuests: Number(data?.numGuests),
-        hasBreakfast: data.hasBreakfast,
-        status: "unconfirmed",
-        isPaid: false,
-        extrasPrice,
-        totalPrice: data?.cabinPrice + extrasPrice,
-      },
-    ])
+    .insert([data])
     .select()
     .single();
   if (error)

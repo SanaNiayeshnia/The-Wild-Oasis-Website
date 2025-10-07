@@ -3,61 +3,21 @@ import FormField from "@/app/_components/accountProfile/FormField";
 import { SelectBox } from "@/app/_components/accountProfile/SelectBox";
 import Button from "@/app/_components/Button";
 import useReservationContext from "@/app/_contexts/reservationContext/useReservationContext";
-import { createBooking, updateReservation } from "@/app/_lib/actions";
-import { differenceInCalendarDays, isSameDay } from "date-fns";
 import Link from "next/link";
-import { useActionState } from "react";
 import { PiSpinnerBold } from "react-icons/pi";
 
 function CheckInDetails({
-  reservation,
+  isEditSession = false,
   cabin = {},
   user = null,
-  hasBreakfast = false,
-  setHasBreakfast = () => {},
+  register = () => {},
+  isSubmitting = false,
+  bookingRange = [],
+  breakfastPrice = 0,
 }) {
-  const isEditSession = Boolean(reservation?.id);
   const { maxCapacity } = cabin;
-  let bookingRange;
-  const reservationContext = useReservationContext();
-  bookingRange = reservationContext?.bookingRange || [];
-
-  const bookingNumNights = isEditSession
-    ? differenceInCalendarDays(reservation?.endDate, reservation?.startDate) ||
-      1
-    : isSameDay(bookingRange?.[0], bookingRange?.[1]) ||
-      bookingRange?.length === 1
-    ? 1
-    : differenceInCalendarDays(bookingRange?.[1], bookingRange?.[0]) || 0;
-
-  const priceWithDiscount = cabin?.regularPrice - cabin?.discount;
-
-  const actionFn = async (prevState, formData) => {
-    const formattedData = {
-      ...Object.fromEntries(formData),
-      ...(!isEditSession
-        ? {
-            cabinId: cabin?.id,
-            guestId: user?.guestId,
-            startDate: new Date(bookingRange?.[0]),
-            endDate: new Date(bookingRange?.[1]),
-          }
-        : {}),
-      cabinPrice: priceWithDiscount * bookingNumNights,
-      numNights: bookingNumNights,
-      hasBreakfast,
-    };
-    if (isEditSession) {
-      return await updateReservation(formattedData);
-    } else {
-      return await createBooking(formattedData);
-    }
-  };
-
-  const [state, action, isPending] = useActionState(actionFn);
-
   return (
-    <form action={action} className="flex flex-col flex-grow bg-primary-900">
+    <div className="flex flex-col flex-grow bg-primary-900">
       {user ? (
         <>
           <p className="bg-primary-800 py-2 px-4 sm:px-6 lg:px-10 w-full text-primary-200">
@@ -67,8 +27,7 @@ function CheckInDetails({
           <div className="flex flex-col gap-3 py-5 px-4 sm:px-6 lg:px-10">
             <SelectBox
               label="How many guests?"
-              name="numGuests"
-              defaultValue={reservation?.numGuests || ""}
+              {...register("numGuests", { valueAsNumber: true })}
               options={[
                 {
                   label: "Select number of guests...",
@@ -80,31 +39,27 @@ function CheckInDetails({
                   value: index + 1,
                 })),
               ]}
-              key={`numGuests-${reservation?.numGuests || ""}`}
             />
             <FormField
               label="Anything we should know about your stay?"
               type="textarea"
               placeholder="Any pets, allergies, special requirments, etc?"
-              defaultValue={reservation?.observation}
-              name="observation"
+              {...register("observation")}
             />
             <div className="flex items-center gap-2">
               <input
                 type="checkbox"
-                name="hasBreakfast"
+                {...register("hasBreakfast")}
                 id="hasBreakfast"
-                defaultChecked={reservation?.hasBreakfast}
                 className="accent-accent-500  border-none w-4 h-4"
-                checked={hasBreakfast}
-                onChange={(e) => setHasBreakfast(e.target.checked)}
-                key={reservation?.hasBreakfast}
               />
-              <label htmlFor="hasBreakfast">Include breakfast</label>
+              <label htmlFor="hasBreakfast">
+                Include breakfast{" "}
+                {isEditSession
+                  ? `(with extra charge of $${breakfastPrice})`
+                  : ""}
+              </label>
             </div>
-            {isEditSession && (
-              <input type="hidden" name="bookingId" value={reservation?.id} />
-            )}
 
             <div className="mt-3 self-end flex items-center gap-4">
               {!isEditSession && bookingRange?.length === 0 && (
@@ -115,7 +70,7 @@ function CheckInDetails({
                 type="submit"
                 disabled={!isEditSession && bookingRange?.length === 0}
               >
-                {isPending && (
+                {isSubmitting && (
                   <PiSpinnerBold className="animate-spin text-xl" />
                 )}
                 {isEditSession ? "Update" : "Reserve now"}
@@ -134,7 +89,7 @@ function CheckInDetails({
           </p>
         </div>
       )}
-    </form>
+    </div>
   );
 }
 

@@ -1,7 +1,6 @@
-import UpdateReservation from "@/app/_components/accountReservations/UpdateReservation";
-import CheckInDetails from "@/app/_components/cabins/cabin/checkIn/CheckInDetails";
+import CheckIn from "@/app/_components/cabins/cabin/checkIn/CheckIn";
 import { auth } from "@/app/_lib/auth";
-import { getReservation } from "@/app/_lib/data_services";
+import { getReservation, getSettings } from "@/app/_lib/data_services";
 import Link from "next/link";
 import { TbArrowBackUp } from "react-icons/tb";
 
@@ -12,8 +11,12 @@ export const generateMetadata = async ({ params }) => {
 
 async function Page({ params }) {
   const { reservationId } = await params;
-  const booking = await getReservation(reservationId);
-  const session = await auth();
+  const [session, booking, settings] = await Promise.all([
+    auth(),
+    getReservation(reservationId),
+    getSettings(),
+  ]);
+
   return (
     <div className="space-y-4">
       <input type="hidden" name="id" defaultValue={reservationId} />
@@ -31,7 +34,12 @@ async function Page({ params }) {
           </Link>
         </div>
       </h1>
-      <UpdateReservation booking={booking} user={session?.user} />
+      <CheckIn
+        reservation={booking}
+        user={session?.user}
+        cabin={booking?.cabins}
+        settings={settings}
+      />
     </div>
   );
 }
