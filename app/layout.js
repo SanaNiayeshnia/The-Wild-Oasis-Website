@@ -21,7 +21,7 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={`${josefin?.className} bg-primary-950 relative`}>
         <Toaster
-          position="top-center"
+          position="bottom-right"
           reverseOrder={false}
           gutter={8}
           containerClassName=""

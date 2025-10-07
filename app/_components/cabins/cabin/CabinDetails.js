@@ -49,7 +49,7 @@ function CabinDetails({ cabin = {} }) {
               /night
             </p>
             {discount > 0 && (
-              <span className="flex items-center gap-1 text-accent-400">
+              <span className="flex items-center md:text-lg gap-1 text-accent-400">
                 <HiStar className="text-lg" />
                 <span className="line-through">
                   ${regularPrice?.toLocaleString()}

@@ -7,6 +7,7 @@ import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi2";
 import CabinDetails from "@/app/_components/cabins/cabin/CabinDetails";
 import CheckIn from "@/app/_components/cabins/cabin/checkIn/CheckIn";
 import { auth } from "@/app/_lib/auth";
+import { TbChevronsLeft, TbChevronsRight } from "react-icons/tb";
 
 export async function generateMetadata({ params }) {
   const { cabinId } = await params;
@@ -28,13 +29,13 @@ async function Page({ params }) {
   return (
     <div className="mt-4 mb-10 grid place-items-center">
       <CabinDetails cabin={cabin} />
-      <p className="text-2xl md:text-4xl my-6 md:my-10 [&_svg]:text-xl items-center flex justify-between w-full text-accent-400 font-medium text-center">
-        <HiChevronDoubleLeft />
-        <div className="flex flex-col gap-2 md:flex-row px-2">
+      <p className="text-2xl md:text-4xl my-6 md:my-10 [&_svg]:text-2xl md:[&_svg]:text-3xl items-center flex justify-center w-full text-accent-400 font-medium text-center">
+        <TbChevronsLeft />
+        <div className="flex flex-col gap-2 sm:flex-row px-2">
           <span>Reserve {cabin?.name} today,</span>
           <span>Pay on arrival</span>
         </div>
-        <HiChevronDoubleRight />
+        <TbChevronsRight />
       </p>
       <CheckIn
         cabin={cabin}
