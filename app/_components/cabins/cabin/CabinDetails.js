@@ -32,11 +32,11 @@ function CabinDetails({ cabin = {} }) {
               <HiUsers />
               For up to <span>{maxCapacity}</span> guests
             </p>
-            <p className="flex items-center gap-2 ">
+            <p className="flex items-center flex-wrap gap-2 ">
               <HiLocationMarker />
               Located in the heart of the <span>Dolomites (Italy)</span>
             </p>
-            <p className="flex items-center gap-2 ">
+            <p className="flex items-center flex-wrap gap-2 ">
               <HiEyeOff />
               Privacy <span>100%</span> guaranteed
             </p>
@@ -46,7 +46,7 @@ function CabinDetails({ cabin = {} }) {
               <span className="text-3xl md:text-5xl text-white">
                 ${priceWithDiscount?.toLocaleString()}
               </span>
-              / night
+              /night
             </p>
             {discount > 0 && (
               <span className="flex items-center gap-1 text-accent-400">

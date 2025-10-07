@@ -98,44 +98,43 @@ function CheckIn({
             bookedDates={bookedDates}
           />
         )}
-        <div className="flex items-center flex-wrap py-1.5 px-3 justify-between gap-4 bg-accent-500 text-stone-800">
-          <div className="flex items-center gap-2 ">
+        <div className="flex flex-col sm:flex-row items-center flex-wrap py-1.5 px-3 justify-between gap-4 bg-accent-500 text-stone-800">
+          <div className="flex items-center gap-2 flex-wrap">
             <div className="flex items-center gap-2">
-              <p className="flex items-end gap-2">
+              <p className="flex items-end gap-1">
                 <span className="text-xl font-semibold">
                   ${priceWithDiscount?.toLocaleString()}
                 </span>
-                {cabin?.discount > 0 && (
-                  <span className="line-through">
-                    ${cabin?.regularPrice?.toLocaleString()}
-                  </span>
-                )}
                 <span>/night</span>
               </p>
               {bookingNumNights > 0 && (
-                <p p className="bg-accent-600 flex items-center p-1">
+                <p p className="bg-accent-600 flex items-center py-0.5 px-1">
                   <HiX className="text-sm" /> {bookingNumNights}
                 </p>
               )}
             </div>
             {watchedValues?.hasBreakfast && bookingNumNights > 0 && (
-              <p>+ ${breakfastPrice} for breakfast</p>
+              <p>
+                + <span className="font-semibold">${breakfastPrice}</span> for
+                breakfast
+              </p>
             )}
           </div>
-
-          <div className="flex items-center  gap-2">
-            <p className="font-semibold text-xl">
-              Total ${totalPrice.toLocaleString()}
-            </p>
-            {bookingRange?.length > 0 && !isEditSession && (
-              <button
-                onClick={() => reservationContext?.setBookingRange([])}
-                className="border-1 hover:bg-accent-600 transition-all duration-300 border-accent-900 p-1 rounded-sm"
-              >
-                Clear
-              </button>
-            )}
-          </div>
+          {bookingRange?.length > 0 && (
+            <div className="flex items-center  gap-2">
+              <p className="font-semibold text-xl">
+                Total: ${totalPrice.toLocaleString()}
+              </p>
+              {bookingRange?.length > 0 && !isEditSession && (
+                <button
+                  onClick={() => reservationContext?.setBookingRange([])}
+                  className="border-1 hover:bg-accent-600 transition-all duration-300 border-accent-900 px-1 py-0.5 rounded-sm"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
+          )}
         </div>
       </div>
 

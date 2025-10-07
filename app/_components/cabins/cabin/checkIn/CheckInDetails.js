@@ -24,38 +24,40 @@ function CheckInDetails({
             {isEditSession ? "Reserved by" : "Logged in as"}{" "}
             <span className="text-accent-200">{user?.name}</span>
           </p>
-          <div className="flex flex-col gap-3 py-5 px-4 sm:px-6 lg:px-10">
-            <SelectBox
-              label="How many guests?"
-              {...register("numGuests", { valueAsNumber: true })}
-              options={[
-                {
-                  label: "Select number of guests...",
-                  value: 0,
-                  disabled: true,
-                },
-                ...Array.from({ length: maxCapacity }).map((item, index) => ({
-                  label: `${index + 1} guests`,
-                  value: index + 1,
-                })),
-              ]}
-            />
-            <FormField
-              label="Anything we should know about your stay?"
-              type="textarea"
-              placeholder="Any pets, allergies, special requirments, etc?"
-              {...register("observation")}
-            />
-            <div className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                {...register("hasBreakfast")}
-                id="hasBreakfast"
-                className="accent-accent-500  border-none w-4 h-4"
+          <div className="flex justify-between flex-grow flex-col gap-3 py-5 px-4 sm:px-6 lg:px-10">
+            <div className="flex flex-col gap-3">
+              <SelectBox
+                label="How many guests?"
+                {...register("numGuests", { valueAsNumber: true })}
+                options={[
+                  {
+                    label: "Select number of guests...",
+                    value: 0,
+                    disabled: true,
+                  },
+                  ...Array.from({ length: maxCapacity }).map((item, index) => ({
+                    label: `${index + 1} guests`,
+                    value: index + 1,
+                  })),
+                ]}
               />
-              <label htmlFor="hasBreakfast">
-                Include breakfast (${breakfastPrice} per person per day)
-              </label>
+              <FormField
+                label="Anything we should know about your stay?"
+                type="textarea"
+                placeholder="Any pets, allergies, special requirments, etc?"
+                {...register("observation")}
+              />
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  {...register("hasBreakfast")}
+                  id="hasBreakfast"
+                  className="accent-accent-500  border-none w-4 h-4"
+                />
+                <label htmlFor="hasBreakfast">
+                  Include breakfast (${breakfastPrice} per person per day)
+                </label>
+              </div>
             </div>
 
             <div className="mt-3 self-end flex items-center gap-4">
