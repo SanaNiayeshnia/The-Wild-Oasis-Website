@@ -47,7 +47,7 @@ function CheckIn({ cabin = {}, settings = {}, bookedDates = [], user = {} }) {
                 <span>/night</span>
               </p>
               {bookingNumNights > 0 && (
-                <p p className="bg-accent-600 flex items-center p-1.5">
+                <p p className="bg-accent-600 flex items-center p-1">
                   <HiX className="text-sm" /> {bookingNumNights}
                 </p>
               )}
@@ -57,7 +57,10 @@ function CheckIn({ cabin = {}, settings = {}, bookedDates = [], user = {} }) {
             )}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center  gap-2">
+            <p className="font-semibold text-xl">
+              Total ${totalPrice.toLocaleString()}
+            </p>
             {bookingRange?.length > 0 && (
               <button
                 onClick={() => setBookingRange([])}
@@ -66,10 +69,6 @@ function CheckIn({ cabin = {}, settings = {}, bookedDates = [], user = {} }) {
                 Clear
               </button>
             )}
-
-            <p className="font-semibold text-xl">
-              Total ${totalPrice.toLocaleString()}
-            </p>
           </div>
         </div>
       </div>

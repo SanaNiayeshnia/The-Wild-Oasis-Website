@@ -13,7 +13,7 @@ async function Page() {
 
   return (
     <div className="flex flex-col gap-4 max-w-[700px]">
-      <h1 className="text-accent-400 text-2xl font-semibold">
+      <h1 className="text-accent-400 text-xl sm:text-2xl font-semibold">
         Update your guest profile
       </h1>
       <p>

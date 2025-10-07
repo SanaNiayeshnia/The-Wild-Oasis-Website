@@ -17,17 +17,19 @@ async function Page({ params }) {
   return (
     <div className="space-y-4">
       <input type="hidden" name="id" defaultValue={reservationId} />
-      <h1 className="text-accent-400 text-2xl flex items-center gap-2 font-semibold">
+      <h1 className="text-accent-400 text-xl sm:text-2xl flex items-center gap-2 font-semibold">
         <Link href="/account/reservations">
           <TbArrowBackUp className="hover:text-white text-primary-500 transition-all duration-300 cursor-pointer text-3xl" />
         </Link>
-        Edit Reservation #{reservationId} for
-        <Link
-          href={`/cabins/${booking?.cabins?.id}`}
-          className="hover:text-white transition-colors duration-300"
-        >
-          Cabin {booking?.cabins?.name}
-        </Link>
+        <div className="flex flex-wrap items-center gap-2 ">
+          Edit Reservation #{reservationId} for
+          <Link
+            href={`/cabins/${booking?.cabins?.id}`}
+            className="hover:text-white transition-colors duration-300"
+          >
+            Cabin {booking?.cabins?.name}
+          </Link>
+        </div>
       </h1>
       <UpdateReservation booking={booking} user={session?.user} />
     </div>

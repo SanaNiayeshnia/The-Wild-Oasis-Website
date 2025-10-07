@@ -15,7 +15,7 @@ function ReservationCardsBtns({ bookingId = undefined }) {
   }
 
   return (
-    <div className="divide-x-2 lg:divide-y-2 flex lg:flex-col  justify-center divide-primary-900">
+    <div className="divide-x-2 lg:divide-y-2 flex flex-row-reverse lg:flex-col  justify-center divide-primary-900">
       <Link
         href={`/account/reservations/${bookingId}`}
         className={`${btnClasses} cursor-pointer`}

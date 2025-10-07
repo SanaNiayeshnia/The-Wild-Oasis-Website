@@ -7,11 +7,14 @@ export const metadata = {
 
 async function Page() {
   return (
-    <>
+    <div div>
+      <h1 className="text-accent-400 text-xl sm:text-2xl font-semibold mb-4">
+        Your Reservations
+      </h1>
       <Suspense fallback={<ReservationList isLoading />}>
         <ReservationList />
       </Suspense>
-    </>
+    </div>
   );
 }
 
