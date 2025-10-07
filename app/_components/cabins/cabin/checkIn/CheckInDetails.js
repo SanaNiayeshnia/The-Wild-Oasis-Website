@@ -54,10 +54,7 @@ function CheckInDetails({
                 className="accent-accent-500  border-none w-4 h-4"
               />
               <label htmlFor="hasBreakfast">
-                Include breakfast{" "}
-                {isEditSession
-                  ? `(with extra charge of $${breakfastPrice})`
-                  : ""}
+                Include breakfast (${breakfastPrice} per person per day)
               </label>
             </div>
 

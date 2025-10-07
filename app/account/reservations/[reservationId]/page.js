@@ -1,3 +1,4 @@
+import ReservationCardHeader from "@/app/_components/accountReservations/ReservationCardHeader";
 import CheckIn from "@/app/_components/cabins/cabin/checkIn/CheckIn";
 import { auth } from "@/app/_lib/auth";
 import { getReservation, getSettings } from "@/app/_lib/data_services";
@@ -24,16 +25,9 @@ async function Page({ params }) {
         <Link href="/account/reservations">
           <TbArrowBackUp className="hover:text-white text-primary-500 transition-all duration-300 cursor-pointer text-3xl" />
         </Link>
-        <div className="flex flex-wrap items-center gap-2 ">
-          Edit Reservation #{reservationId} for
-          <Link
-            href={`/cabins/${booking?.cabins?.id}`}
-            className="hover:text-white transition-colors duration-300"
-          >
-            Cabin {booking?.cabins?.name}
-          </Link>
-        </div>
+        <p>Edit Reservation #{reservationId}</p>
       </h1>
+      <ReservationCardHeader reservation={booking} />
       <CheckIn
         reservation={booking}
         user={session?.user}

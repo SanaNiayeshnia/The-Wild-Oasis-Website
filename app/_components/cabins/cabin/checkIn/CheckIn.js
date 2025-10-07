@@ -80,10 +80,16 @@ function CheckIn({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col md:flex-row min-h-80 border-2 border-primary-800 w-full"
+      className={`flex flex-col-reverse min-h-80 border-2 border-primary-800 w-full ${
+        !isEditSession ? "md:flex-row" : ""
+      }`}
     >
-      {!isEditSession && (
-        <div className="flex flex-col md:w-1/2 justify-between">
+      <div
+        className={`flex flex-col justify-between ${
+          !isEditSession ? "md:w-1/2" : ""
+        }`}
+      >
+        {!isEditSession && (
           <CustomDatePicker
             minRangeLength={minBookingLength}
             maxRangeLength={maxBookingLength}
@@ -91,47 +97,47 @@ function CheckIn({
             key={cabin?.id}
             bookedDates={bookedDates}
           />
-          <div className="flex items-center flex-wrap py-1.5 px-3 justify-between gap-4 bg-accent-500 text-stone-800">
-            <div className="flex items-center gap-2 ">
-              <div className="flex items-center gap-2">
-                <p className="flex items-end gap-2">
-                  <span className="text-xl font-semibold">
-                    ${priceWithDiscount?.toLocaleString()}
+        )}
+        <div className="flex items-center flex-wrap py-1.5 px-3 justify-between gap-4 bg-accent-500 text-stone-800">
+          <div className="flex items-center gap-2 ">
+            <div className="flex items-center gap-2">
+              <p className="flex items-end gap-2">
+                <span className="text-xl font-semibold">
+                  ${priceWithDiscount?.toLocaleString()}
+                </span>
+                {cabin?.discount > 0 && (
+                  <span className="line-through">
+                    ${cabin?.regularPrice?.toLocaleString()}
                   </span>
-                  {cabin?.discount > 0 && (
-                    <span className="line-through">
-                      ${cabin?.regularPrice?.toLocaleString()}
-                    </span>
-                  )}
-                  <span>/night</span>
-                </p>
-                {bookingNumNights > 0 && (
-                  <p p className="bg-accent-600 flex items-center p-1">
-                    <HiX className="text-sm" /> {bookingNumNights}
-                  </p>
                 )}
-              </div>
-              {watchedValues?.hasBreakfast && bookingNumNights > 0 && (
-                <p>+ ${breakfastPrice} for breakfast</p>
-              )}
-            </div>
-
-            <div className="flex items-center  gap-2">
-              <p className="font-semibold text-xl">
-                Total ${totalPrice.toLocaleString()}
+                <span>/night</span>
               </p>
-              {bookingRange?.length > 0 && (
-                <button
-                  onClick={() => setBookingRange([])}
-                  className="border-1 hover:bg-accent-600 transition-all duration-300 border-accent-900 p-1 rounded-sm"
-                >
-                  Clear
-                </button>
+              {bookingNumNights > 0 && (
+                <p p className="bg-accent-600 flex items-center p-1">
+                  <HiX className="text-sm" /> {bookingNumNights}
+                </p>
               )}
             </div>
+            {watchedValues?.hasBreakfast && bookingNumNights > 0 && (
+              <p>+ ${breakfastPrice} for breakfast</p>
+            )}
+          </div>
+
+          <div className="flex items-center  gap-2">
+            <p className="font-semibold text-xl">
+              Total ${totalPrice.toLocaleString()}
+            </p>
+            {bookingRange?.length > 0 && !isEditSession && (
+              <button
+                onClick={() => reservationContext?.setBookingRange([])}
+                className="border-1 hover:bg-accent-600 transition-all duration-300 border-accent-900 p-1 rounded-sm"
+              >
+                Clear
+              </button>
+            )}
           </div>
         </div>
-      )}
+      </div>
 
       <CheckInDetails
         cabin={cabin}
@@ -140,9 +146,7 @@ function CheckIn({
         isSubmitting={isSubmitting}
         isEditSession={isEditSession}
         bookingRange={bookingRange}
-        breakfastPrice={
-          bookingNumNights * watchedValues?.numGuests * settings?.breakfastPrice
-        }
+        breakfastPrice={settings?.breakfastPrice}
       />
     </form>
   );
