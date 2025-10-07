@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { auth } from "../_lib/auth";
 
 export const revalidate = 3600;

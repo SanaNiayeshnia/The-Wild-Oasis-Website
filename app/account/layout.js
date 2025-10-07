@@ -1,9 +1,9 @@
 import SideNavigation from "../_components/SideNavigation";
 import { HiHome, HiCalendar, HiUser } from "react-icons/hi2";
-
 import AccountSheet from "../_components/accountSheet/AccountSheet";
 
-function Layout({ children }) {
+async function Layout({ children }) {
+  await new Promise((r) => setTimeout(r, 2000));
   const sideNavItems = [
     { title: "Home", icon: <HiHome />, link: "/account" },
     {
