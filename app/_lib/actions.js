@@ -44,7 +44,7 @@ export async function updateReservation({ bookingId, ...data }) {
   console.log(data);
   const settings = await getSettings();
   const extrasPrice = data.hasBreakfast
-    ? settings?.breakfastPrice * data?.numNights
+    ? settings?.breakfastPrice * data?.numGuests * data?.numNights
     : 0;
 
   const { error } = await supabase
@@ -67,7 +67,7 @@ export async function updateReservation({ bookingId, ...data }) {
 export async function createBooking(data) {
   const settings = await getSettings();
   const extrasPrice = data?.hasBreakfast
-    ? settings?.breakfastPrice * data?.numNights
+    ? settings?.breakfastPrice * data?.numGuests * data?.numNights
     : 0;
 
   const { data: booking, error } = await supabase
