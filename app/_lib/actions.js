@@ -22,8 +22,13 @@ export async function updateProfileAction(prevState, formData) {
     .from("guests")
     .update({ nationalID, nationality })
     .eq("id", guestId);
-  if (error) throw new Error(error.message);
-  revalidatePath("/account/profile");
+  if (error) {
+    console.log(error.message);
+    return { error: error?.message };
+  } else {
+    revalidatePath("/account/profile");
+    return { success: true };
+  }
 }
 
 export async function deleteReservation(bookingId) {

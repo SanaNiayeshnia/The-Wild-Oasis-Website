@@ -1,15 +1,31 @@
 "use client";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import Button from "../Button";
 import FormField from "./FormField";
 import { updateProfileAction } from "@/app/_lib/actions";
 import { PiSpinnerBold } from "react-icons/pi";
+import { toast } from "sonner";
+import { formatDate } from "@/app/_lib/functions";
 
 function UpdateProfileForm({ guest = {}, children }) {
   const [state, formAction, isPending] = useActionState(
     updateProfileAction,
     null
   );
+
+  useEffect(() => {
+    if (!state) return;
+
+    if (state.success) {
+      toast.success("Profile updated successfully!", {
+        description: formatDate(new Date(), "dddd, MMMM DD, YYYY [at] hh:mm A"),
+      });
+    } else if (state.error) {
+      toast.error("Failed to update the profile!", {
+        description: state.error,
+      });
+    }
+  }, [state]);
 
   return (
     <form

@@ -9,7 +9,6 @@ export const metadata = {
 async function ProfilePage() {
   const session = await auth();
   const guest = await getGuest(session?.user?.email);
-  console.log(guest);
 
   return (
     <div className="flex flex-col gap-4 max-w-[700px]">
