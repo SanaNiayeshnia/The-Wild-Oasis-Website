@@ -2,7 +2,7 @@ import { auth } from "../_lib/auth";
 
 export const revalidate = 3600;
 export const metadata = { title: "Account" };
-async function Page() {
+async function AccountPage() {
   const session = await auth();
 
   return (
@@ -20,4 +20,4 @@ async function Page() {
   );
 }
 
-export default Page;
+export default AccountPage;

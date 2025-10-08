@@ -5,7 +5,7 @@ export const metadata = {
   title: "Reservations",
 };
 
-async function Page() {
+async function ReservationsPage() {
   return (
     <div div>
       <h1 className="text-accent-400 text-xl sm:text-2xl font-semibold mb-4">
@@ -18,4 +18,4 @@ async function Page() {
   );
 }
 
-export default Page;
+export default ReservationsPage;

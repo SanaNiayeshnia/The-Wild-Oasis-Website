@@ -4,7 +4,7 @@ import { signInAction } from "../_lib/actions";
 
 export const metadata = { title: "Sign In" };
 
-function page() {
+function LoginPage() {
   return (
     <form action={signInAction} className="grid place-items-center flex-grow">
       <div className="flex flex-col items-center gap-5 -mt-15 bg-primary-900 p-5 rounded-md">
@@ -23,4 +23,4 @@ function page() {
   );
 }
 
-export default page;
+export default LoginPage;

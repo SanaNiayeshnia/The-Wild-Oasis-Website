@@ -9,7 +9,7 @@ export const metadata = {
   title: "Successful Reservation",
 };
 
-export default async function Page({ searchParams }) {
+export default async function ReservationSuccessPage({ searchParams }) {
   const reservationId = await searchParams.reservationId;
   const booking = await getReservation(reservationId);
 

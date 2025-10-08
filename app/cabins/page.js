@@ -14,7 +14,7 @@ const filterByCapacity = [
   { label: "8-12 guests", value: "large" },
 ];
 
-function Page({ searchParams }) {
+function CabinsPage({ searchParams }) {
   const { capacity } = React.use(searchParams) ?? "all";
   return (
     <div className="flex flex-col gap-8">
@@ -42,4 +42,4 @@ function Page({ searchParams }) {
   );
 }
 
-export default Page;
+export default CabinsPage;

@@ -17,7 +17,7 @@ export async function generateMetadata({ params }) {
   };
 }
 
-async function Page({ params }) {
+async function CabinPage({ params }) {
   const { cabinId } = await params;
   const cabin = await getCabin(cabinId);
   const [session, settings, bookedDates] = await Promise.all([
@@ -47,4 +47,4 @@ async function Page({ params }) {
   );
 }
 
-export default Page;
+export default CabinPage;

@@ -10,7 +10,7 @@ export const generateMetadata = async ({ params }) => {
   return { title: `reservation ${reservationId}` };
 };
 
-async function Page({ params }) {
+async function ReservationPage({ params }) {
   const { reservationId } = await params;
   const [session, booking, settings] = await Promise.all([
     auth(),
@@ -38,4 +38,4 @@ async function Page({ params }) {
   );
 }
 
-export default Page;
+export default ReservationPage;

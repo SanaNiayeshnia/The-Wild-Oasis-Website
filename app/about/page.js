@@ -6,7 +6,8 @@ import { getCabins } from "../_lib/data_services";
 
 export const revalidate = 3600;
 export const metadata = { title: "About" };
-async function Page() {
+
+async function AboutPage() {
   const cabins = await getCabins();
 
   return (
@@ -76,4 +77,4 @@ async function Page() {
   );
 }
 
-export default Page;
+export default AboutPage;

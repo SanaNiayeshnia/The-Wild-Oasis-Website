@@ -10,7 +10,6 @@ export const FilterBox = ({ items, filterName = "" }) => {
   function handleFiltering(value) {
     const params = new URLSearchParams(searchParams);
     params.set("capacity", value);
-    console.log(params);
     router.replace(`${pathname}?${params?.toString()}`);
   }
 
