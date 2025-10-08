@@ -6,9 +6,9 @@ import {
   isSameDay,
   isWithinInterval,
 } from "date-fns";
-import toast from "react-hot-toast";
 import { HiMiniInformationCircle } from "react-icons/hi2";
 import useReservationContext from "@/app/_contexts/reservationContext/useReservationContext";
+import { toast } from "sonner";
 
 function CustomDatePicker({
   minRangeLength = 1,
@@ -30,9 +30,7 @@ function CustomDatePicker({
     if (isRangeBooked) {
       setBookingRange([]);
       toast(`You can't choose a date range that includes booked dates!`, {
-        icon: (
-          <HiMiniInformationCircle className="text-2xl shrink-0 text-accent-700" />
-        ),
+        icon: <HiMiniInformationCircle />,
       });
     } else if (
       value?.length === 2 &&
@@ -42,9 +40,7 @@ function CustomDatePicker({
       toast(
         `You should select between ${minRangeLength} to ${maxRangeLength} days.`,
         {
-          icon: (
-            <HiMiniInformationCircle className="text-2xl shrink-0 text-accent-700" />
-          ),
+          icon: <HiMiniInformationCircle />,
         }
       );
     } else {

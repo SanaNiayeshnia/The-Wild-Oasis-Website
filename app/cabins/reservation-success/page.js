@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 export default async function ReservationSuccessPage({ searchParams }) {
-  const reservationId = await searchParams.reservationId;
+  const { reservationId } = await searchParams;
   const booking = await getReservation(reservationId);
 
   return (

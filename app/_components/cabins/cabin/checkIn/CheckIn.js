@@ -6,6 +6,8 @@ import useReservationContext from "@/app/_contexts/reservationContext/useReserva
 import { differenceInCalendarDays, isSameDay } from "date-fns";
 import { useForm, useWatch } from "react-hook-form";
 import { createBooking, updateReservation } from "@/app/_lib/actions";
+import { toast } from "sonner";
+import { formatDate } from "@/app/_lib/functions";
 
 function CheckIn({
   cabin = {},
@@ -31,7 +33,7 @@ function CheckIn({
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
     control,
   } = useForm({
     defaultValues: {
@@ -71,10 +73,27 @@ function CheckIn({
       extrasPrice: breakfastPrice,
       totalPrice,
     };
-    console.log(formattedData);
-    if (isEditSession) {
-      return await updateReservation(formattedData);
-    } else return await createBooking(formattedData);
+    const result = isEditSession
+      ? await updateReservation(formattedData)
+      : await createBooking(formattedData);
+
+    if (result?.error) {
+      toast.error(
+        isEditSession
+          ? "Failed to update reservation!"
+          : "Failed to book the reservation!",
+        { description: result.error }
+      );
+    } else {
+      if (isEditSession) {
+        toast.success("Reservation updated successfully!", {
+          description: formatDate(
+            new Date(),
+            "dddd, MMMM DD, YYYY [at] hh:mm A"
+          ),
+        });
+      }
+    }
   }
 
   return (
@@ -108,7 +127,7 @@ function CheckIn({
                 <span>/night</span>
               </p>
               {bookingNumNights > 0 && (
-                <p p className="bg-accent-600 flex items-center py-0.5 px-1">
+                <p className="bg-accent-600 flex items-center py-0.5 px-1">
                   <HiX className="text-sm" /> {bookingNumNights}
                 </p>
               )}

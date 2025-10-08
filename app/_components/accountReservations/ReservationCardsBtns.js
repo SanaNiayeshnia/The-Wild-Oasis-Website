@@ -5,13 +5,29 @@ import { RiDeleteBin5Fill, RiEdit2Fill } from "react-icons/ri";
 import ConfirmationAlert from "../ConfirmationAlert";
 import { useTransition } from "react";
 import { deleteReservation } from "@/app/_lib/actions";
+import { toast } from "sonner";
+import { formatDate } from "@/app/_lib/functions";
 
 function ReservationCardsBtns({ bookingId = undefined }) {
   const [isPendingDelete, startDeleteTransition] = useTransition();
   const btnClasses = `py-2 px-3 flex-grow flex shrink-0 items-center justify-center  hover:bg-primary-900 transition-all duration-300 group gap-2`;
 
   function handleDeleteBooking() {
-    startDeleteTransition(async () => await deleteReservation(bookingId));
+    startDeleteTransition(async () => {
+      const result = await deleteReservation(bookingId);
+      if (result?.error) {
+        toast.success("Failed to delete the reservation!", {
+          description: result?.error,
+        });
+      } else {
+        toast.success("Reservertion deleted successfully.", {
+          description: formatDate(
+            new Date(),
+            "dddd, MMMM DD, YYYY [at] hh:mm A"
+          ),
+        });
+      }
+    });
   }
 
   return (

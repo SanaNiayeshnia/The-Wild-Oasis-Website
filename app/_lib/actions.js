@@ -3,7 +3,6 @@
 import { revalidatePath } from "next/cache";
 import { auth, signIn, signOut } from "./auth";
 import supabase from "./supabase";
-import { getSettings } from "./data_services";
 import { redirect } from "next/navigation";
 
 export async function signInAction() {
@@ -36,8 +35,12 @@ export async function deleteReservation(bookingId) {
     .delete()
     .eq("id", bookingId)
     .eq("guestId", session.user.guestId);
-  if (error) throw new Error(error.message);
-  revalidatePath("/account/reservations");
+  if (error) {
+    console.log(error.message);
+    return { error: error.message };
+  } else {
+    revalidatePath("/account/reservations");
+  }
 }
 
 export async function updateReservation({ bookingId, ...data }) {
@@ -47,20 +50,26 @@ export async function updateReservation({ bookingId, ...data }) {
     .eq("id", bookingId)
     .select();
 
-  if (error) throw new Error(error.message);
-  revalidatePath("/account/reservations");
-  revalidatePath(`/account/reservations/${bookingId}`);
+  if (error) {
+    console.log("Failed to update the booking!" + error.message);
+    return { error: error.message };
+  } else {
+    revalidatePath("/account/reservations");
+    revalidatePath(`/account/reservations/${bookingId}`);
+  }
 }
 
 export async function createBooking(data) {
-  console.log(data);
   const { data: booking, error } = await supabase
     .from("bookings")
     .insert([data])
     .select()
     .single();
-  if (error)
-    throw new Error("Failed to create the new booking!" + error?.message);
-  revalidatePath("/account/reservations");
-  redirect(`/cabins/reservation-success?reservationId=${booking?.id}`);
+  if (error) {
+    console.log("Failed to create the new booking!" + error?.message);
+    return { error: error.message };
+  } else {
+    revalidatePath("/account/reservations");
+    redirect(`/cabins/reservation-success?reservationId=${booking?.id}`);
+  }
 }
