@@ -24,7 +24,8 @@ function ReservationCard({ booking = {}, isLoading = false }) {
             src={cabins?.image}
             alt={cabins?.name}
             className="object-cover group-hover:scale-120 transition-all duration-300"
-            placeholder="empty"
+            placeholder="blur"
+            blurDataURL="/placeholder.png"
             fill
           />
         </Link>

@@ -20,6 +20,8 @@ async function CabinCard({ cabin = {}, isLoading = false }) {
             src={cabin?.image}
             alt={cabin?.name}
             fill
+            placeholder="blur"
+            blurDataURL="/placeholder.png"
             className="object-cover"
           />
         )}
