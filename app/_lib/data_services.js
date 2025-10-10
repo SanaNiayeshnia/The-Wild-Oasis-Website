@@ -3,7 +3,7 @@ import supabase from "./supabase";
 import { auth } from "./auth";
 import { eachDayOfInterval } from "date-fns";
 
-export async function getCabins(capacity) {
+export async function getCabins(capacity = "all") {
   const { data: cabins, error } =
     capacity === "all"
       ? await supabase.from("cabins").select("*").order("name")
