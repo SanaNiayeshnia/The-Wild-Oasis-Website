@@ -3,11 +3,34 @@ import supabase from "./supabase";
 import { auth } from "./auth";
 import { eachDayOfInterval } from "date-fns";
 
-export async function getCabins() {
-  const { data: cabins, error } = await supabase
-    .from("cabins")
-    .select("*")
-    .order("name");
+export async function getCabins(capacity) {
+  const { data: cabins, error } =
+    capacity === "all"
+      ? await supabase.from("cabins").select("*").order("name")
+      : await supabase
+          .from("cabins")
+          .select("*")
+          .order("name")
+          .gte(
+            "maxCapacity",
+            capacity === "small"
+              ? 2
+              : capacity === "medium"
+              ? 4
+              : capacity === "large"
+              ? 8
+              : ""
+          )
+          .lte(
+            "maxCapacity",
+            capacity === "small"
+              ? 3
+              : capacity === "medium"
+              ? 7
+              : capacity === "large"
+              ? 12
+              : ""
+          );
   if (error) {
     throw new Error("Couldn't fetch cabins", error.message);
   }
