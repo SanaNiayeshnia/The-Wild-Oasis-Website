@@ -29,10 +29,10 @@ async function CabinCard({ cabin = {}, isLoading = false }) {
       <div className="flex-grow flex flex-col">
         <div className="py-3 px-4 flex flex-col justify-between gap-1 flex-grow">
           {isLoading ? (
-            <>
+            <div className="flex flex-col gap-1">
               <Skeleton className="rounded-sm w-28 h-5" />
               <Skeleton className="rounded-sm w-40 h-5" />
-            </>
+            </div>
           ) : (
             <div className="flex flex-col gap-1">
               <h4 className="text-accent-200 text-xl font-semibold">
