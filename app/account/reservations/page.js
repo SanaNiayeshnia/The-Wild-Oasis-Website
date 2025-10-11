@@ -7,7 +7,7 @@ export const metadata = {
 
 async function ReservationsPage() {
   return (
-    <div div>
+    <div className="min-h-[70vh]">
       <h1 className="text-accent-400 text-xl sm:text-2xl font-semibold mb-4">
         Your Reservations
       </h1>

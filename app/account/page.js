@@ -6,7 +6,7 @@ async function AccountPage() {
   const session = await auth();
 
   return (
-    <div className="grid place-items-center flex-grow h-[70vh]">
+    <div className="grid place-items-center flex-grow min-h-[70vh]">
       <div className="max-w-96 ">
         <h1 className="text-accent-400 text-center text-2xl font-semibold mb-4">
           Welcome, {session?.user?.name}
