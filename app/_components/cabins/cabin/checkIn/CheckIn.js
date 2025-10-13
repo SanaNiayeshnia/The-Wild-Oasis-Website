@@ -13,7 +13,7 @@ function CheckIn({
   cabin = {},
   settings = {},
   bookedDates = [],
-  user = {},
+  user = null,
   reservation,
 }) {
   const isEditSession = reservation?.id;
@@ -99,7 +99,7 @@ function CheckIn({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={`flex flex-col-reverse min-h-80 border-2 border-primary-800 w-full ${
+      className={`flex flex-col min-h-80 border-2 border-primary-800 w-full ${
         !isEditSession ? "md:flex-row" : ""
       }`}
     >

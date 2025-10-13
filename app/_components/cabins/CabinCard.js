@@ -35,9 +35,12 @@ async function CabinCard({ cabin = {}, isLoading = false }) {
             </div>
           ) : (
             <div className="flex flex-col gap-1">
-              <h4 className="text-accent-200 text-xl font-semibold">
+              <Link
+                href={`cabins/${cabin?.id}`}
+                className="text-accent-200 text-xl font-semibold"
+              >
                 Cabin {cabin?.name}
-              </h4>
+              </Link>
               <p className="text-sm flex items-center gap-2">
                 <HiUsers className="text-primary-500" />
                 For up to{" "}

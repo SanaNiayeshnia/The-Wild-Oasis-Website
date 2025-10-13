@@ -18,7 +18,7 @@ function CheckInDetails({
   const { maxCapacity } = cabin;
   return (
     <div className="flex flex-col flex-grow bg-primary-900">
-      {user ? (
+      {user?.email ? (
         <>
           <p className="bg-primary-800 py-2 px-4 sm:px-6 lg:px-10 w-full text-primary-200">
             {isEditSession ? "Reserved by" : "Logged in as"}{" "}
@@ -67,7 +67,9 @@ function CheckInDetails({
               <Button
                 size="small"
                 type="submit"
-                disabled={!isEditSession && bookingRange?.length === 0}
+                disabled={
+                  (!isEditSession && bookingRange?.length === 0) || !user?.email
+                }
               >
                 {isSubmitting && (
                   <PiSpinnerBold className="animate-spin text-xl" />
@@ -78,7 +80,7 @@ function CheckInDetails({
           </div>
         </>
       ) : (
-        <div className="grid  place-items-center min-h-40 h-full">
+        <div className="grid  place-items-center min-h-20 h-full">
           <p className="text-justify">
             Please{" "}
             <Link href="/login" className="text-accent-400 underline">
